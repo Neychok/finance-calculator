@@ -40,6 +40,15 @@ namespace FinanceCalculator {
         protected global::System.Web.UI.WebControls.TextBox input3;
         
         /// <summary>
+        /// drop_vid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_vid;
+        
+        /// <summary>
         /// input5 control.
         /// </summary>
         /// <remarks>

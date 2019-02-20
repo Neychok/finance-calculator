@@ -53,7 +53,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:DropDownList class="form-control"ID="drop_vid" AppendDataBoundItems="true" runat="server">
+                                    <asp:DropDownList class="form-control" ID="drop_vid" AppendDataBoundItems="true" runat="server">
                                         <asp:ListItem Text="Анюитетни вноски"/>
                                         <asp:ListItem Text="Намаляващи вноски"/>
                                     </asp:DropDownList>
@@ -255,7 +255,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = 5 + " %";
+                in1td1.innerHTML = <%=GPR%> + " %";
                 tr1.appendChild(in1td1);
                 tbody.appendChild(tr1);
 
@@ -267,7 +267,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = 10270.83 + " BGN";
+                in2td1.innerHTML = <%=pogaseni%> + " BGN";
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -279,7 +279,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = 0.00 + " BGN";
+                in3td1.innerHTML = <%=taksi%> + " BGN";
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
