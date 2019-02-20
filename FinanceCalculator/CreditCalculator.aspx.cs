@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.VisualBasic;
 
 namespace FinanceCalculator
 {
@@ -32,13 +33,14 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            double creditAmount = 0.0, interestRate = 0.0, Months = 0.0; // Inputs
+            double creditAmount = 0.0, interestRate = 0.0; 
+            int Months; // Inputs
             double monthlyPayments = 0.0, R = 0.0;
             double fee_kandi = 0.0, fee_obrabot = 0.0, fee_drug = 0.0, yearFee_upr = 0.0, yearFee_drug = 0.0, monthFee_upr = 0.0, monthFee_drug = 0.0; // Такси
-            double temp=0.0,monthTemp=0.0, temp2 = 0.0;
+
             //Input
             creditAmount = double.Parse(input1.Text);
-            Months = double.Parse(input2.Text);
+            Months = int.Parse(input2.Text);
             interestRate = double.Parse(input3.Text);
 
             //ВНОСКИ
@@ -50,7 +52,6 @@ namespace FinanceCalculator
             vnoski = monthlyPayments * Months;
 
             //ГПР
-
 
             //ЛИХВИ
             lihvi = vnoski - creditAmount;
@@ -106,29 +107,9 @@ namespace FinanceCalculator
             if (drop13.SelectedIndex == 0)
             {
                 monthFee_upr = monthFee_upr / 100;
-                temp = creditAmount;
-                for(int i = 0; i < Months; i++)
-                {
-                    temp2 += temp * monthFee_upr;
-                    temp = temp - monthlyPayments;
-                }
-                monthFee_upr = temp2;
-                temp = 0.0;
-                temp2 = 0.0;
             }
             if (drop14.SelectedIndex == 0){
                 monthFee_drug = monthFee_drug / 100;
-                temp = creditAmount;
-                monthTemp = temp / Months;
-                for (int i = 0; i < Months; i++)
-                {
-                    temp2 += temp * monthFee_drug;
-                    temp = temp - monthTemp;
-                }
-                monthFee_drug = temp2;
-                temp = 0.0;
-                monthTemp = 0.0;
-                temp2 = 0.0;
             }
 
             taksi = fee_kandi + fee_drug + fee_obrabot + monthFee_upr + monthFee_drug + yearFee_upr + yearFee_drug;

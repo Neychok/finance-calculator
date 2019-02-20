@@ -267,7 +267,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = <%=pogaseni%> + " BGN";
+                in2td1.innerHTML = <%=Math.Round(pogaseni,2)%> + " BGN";
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -279,7 +279,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = <%=taksi%> + " BGN";
+                in3td1.innerHTML = <%=Math.Round(taksi,2)%> + " BGN";
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
@@ -291,7 +291,7 @@
                 tr4.appendChild(inth4);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in4td1");
-                in4td1.innerHTML = <%=lihvi%> + " BGN";
+                in4td1.innerHTML = <%=Math.Round(lihvi,2)%> + " BGN";
                 tr4.appendChild(in4td1);
                 tbody.appendChild(tr4);
 
@@ -303,7 +303,7 @@
                 tr5.appendChild(inth5);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in5td1");
-                in4td1.innerHTML = <%=vnoski%> + " BGN";
+                in4td1.innerHTML = <%=Math.Round(vnoski,2)%> + " BGN";
                 tr5.appendChild(in4td1);
                 tbody.appendChild(tr5);
 
