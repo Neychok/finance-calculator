@@ -1,0 +1,22 @@
+﻿#body {
+    background-image: url("../background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 0.8);
+    background-blend-mode: lighten;
+}
+
+#title {
+    color: orange;
+    font-weight: bold;
+    text-shadow: 2px 2px #000000;
+}
+
+#subTitle1, #subTitle2 {
+    color: blue;
+}
