@@ -54,6 +54,8 @@
                 <a href="https://www.w3schools.com/bootstrap/bootstrap_collapse.asp" target="_blank">Bootstrap collapsible items</a>
                 <br/>
                 <a href="https://stackoverflow.com/questions/3276798/asp-net-dropdownlist-html-select-list-default-selection" target="_blank">Dropdown hax for default value</a>
+                <br/>
+                <a href="https://stackoverflow.com/questions/19233415/how-to-make-type-number-to-positive-numbers-only" target="_blank">Make input accept floats as well as integers and keep them all positive</a>
             </p>
         </body>
     </html>
