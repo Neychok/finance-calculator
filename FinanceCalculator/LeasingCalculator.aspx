@@ -31,7 +31,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" class="form-control input-sm" id="input1" required="required" placeholder="Моля въведете цена" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input1" required="required" placeholder="Моля въведете цена" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" class="form-control input-sm" id="input2" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input2" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" class="form-control input-sm" id="input4" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input4" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" class="form-control input-sm" id="input5" placeholder="В % или валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input5" placeholder="В % или валута" runat="server"></asp:TextBox>
                                     <asp:DropDownList class="form-control" AppendDataBoundItems="true" runat="server">
                                         <asp:ListItem Text="%"/>
                                         <asp:ListItem Text="Валута"/>
