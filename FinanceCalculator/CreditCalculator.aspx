@@ -28,6 +28,7 @@
                                     <span class="input-group-addon">$</span>
                                     <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input1" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
+                                <asp:Label class="col-sm-6 control-label" id="error1" text="" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,6 +38,7 @@
                                     <span class="input-group-addon">$</span>
                                     <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input2" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
                                 </div>
+                                <asp:Label class="col-sm-6 control-label" id="error2" text="" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -46,6 +48,7 @@
                                     <span class="input-group-addon">$</span>
                                     <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input3" required="required" placeholder="В %" runat="server"></asp:TextBox>
                                 </div>
+                                <asp:Label class="col-sm-6 control-label" id="error3" text="" runat="server"></asp:Label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -77,6 +80,7 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input5" placeholder="В месеци" runat="server"></asp:TextBox>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error5" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,6 +90,7 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input6" placeholder="В %" runat="server"></asp:TextBox>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error6" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -95,6 +100,7 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input7" placeholder="В месеци" runat="server"></asp:TextBox>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error7" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +128,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error8" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -135,6 +142,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error9" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -148,6 +156,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error10" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="text-center col-md-10">
@@ -168,6 +177,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error11" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -181,6 +191,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error12" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="text-center col-md-10">
@@ -201,6 +212,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error13" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -214,6 +226,7 @@
                                             <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
+                                    <asp:Label class="col-sm-6 control-label" id="error14" text="" runat="server"></asp:Label>
                                 </div>
                             </div>
                         </div>
