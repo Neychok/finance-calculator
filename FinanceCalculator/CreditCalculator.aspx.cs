@@ -26,7 +26,7 @@ namespace FinanceCalculator
             error13.Text = "";
             error14.Text = "";
         }
-        public double GPR = 0.0, vnoski = 0.0, lihvi = 0.0, taksi = 0.0, pogaseni = 0.0;
+        public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
 
         //Input1 = Credit Amount / Размер на кредит -- Валута -------
         //Input2 = Months / Срок --------------------- Месеци -------
@@ -79,17 +79,15 @@ namespace FinanceCalculator
             double a = 1.0 + R;
             double b = Math.Pow(a, -Months);
             monthlyPayments = creditAmount * R / (1 - b);
-            vnoski = monthlyPayments * Months;
+            vnoski = (decimal)monthlyPayments * Months;
 
             if ((Months / 12.0) > 1.0) //Брой години
             {
                 years = (Months - 1) / 12;
                 years = Math.Floor(years);
-
             }
 
             //ТАКСИ - Input / Проверка / Трансформиране в проценти / Сметки
-
             if (!String.IsNullOrWhiteSpace(input8.Text)) //ТАКСА КАНДИДАТСТВАНЕ
             {
                 fee_kandi = double.Parse(input8.Text);
@@ -146,7 +144,7 @@ namespace FinanceCalculator
                 if (drop11.SelectedIndex == 1) //Ако е в проценти
                 {
                     yearFee_upr = yearFee_upr / 100;
-                    temp2 = vnoski;
+                    temp2 = (double)vnoski;
                     for (int i = 0; i < years; i++)
                     {
                         temp = temp + ((temp2 - (monthlyPayments * 12)) * yearFee_upr);
@@ -173,7 +171,7 @@ namespace FinanceCalculator
                 if (drop12.SelectedIndex == 1) //Ако е в проценти
                 {
                     yearFee_drug = yearFee_drug / 100;
-                    temp2 = vnoski;
+                    temp2 = (double)vnoski;
                     for (int i = 0; i < years; i++)
                     {
                         temp = temp + ((temp2 - (monthlyPayments * 12)) * yearFee_drug);
@@ -200,7 +198,7 @@ namespace FinanceCalculator
                 if (drop13.SelectedIndex == 1) //Ако е в проценти
                 {
                     monthFee_upr = monthFee_upr / 100;
-                    temp2 = vnoski;
+                    temp2 = (double)vnoski;
                     temp = temp2 * monthFee_upr;
                     for (int i = 1; i < Months; i++)
                     {
@@ -228,7 +226,7 @@ namespace FinanceCalculator
                 if (drop14.SelectedIndex == 1) //Ако е в проценти
                 {
                     monthFee_drug = monthFee_drug / 100;
-                    temp2 = vnoski;
+                    temp2 = (double)vnoski;
                     temp = temp2 * monthFee_drug;
                     for (int i = 1; i < Months; i++)
                     {
@@ -249,22 +247,24 @@ namespace FinanceCalculator
             //СМЕТКИ
             if (_error == false)
             {
-                //ВНОСКИ
-
-
                 //ГПР
-                GPR = (Math.Pow(a, 12) - 1) * 100;
+                GPR = ((decimal)Math.Pow(a, 12) - 1) * 100;
 
                 //ЛИХВИ
-                lihvi = vnoski - creditAmount;
+                lihvi = vnoski - (decimal)creditAmount;
 
-                //ТАКСИ
-
-                taksi = fee_kandi + fee_drug + fee_obrabot + monthFee_upr + monthFee_drug + yearFee_upr + yearFee_drug;
+                //ТАКСИ 
+                taksi = (decimal)fee_kandi + (decimal)fee_drug + (decimal)fee_obrabot + (decimal)monthFee_upr + (decimal)monthFee_drug + (decimal)yearFee_upr + (decimal)yearFee_drug;
 
                 //ПОГАСЕНИ
                 pogaseni = vnoski + taksi;
 
+                // Закръгляне на числата
+                taksi = Decimal.Round(taksi, 2);
+                vnoski =Decimal.Round(vnoski, 2);
+                pogaseni = Decimal.Round(pogaseni, 2);
+                GPR = Decimal.Round(GPR, 4);
+                lihvi = Decimal.Round(lihvi, 2);
 
                 //Таблица
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
