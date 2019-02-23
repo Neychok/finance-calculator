@@ -124,8 +124,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input8" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop8" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error8" text="" runat="server"></asp:Label>
@@ -152,8 +152,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input10" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop10" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error10" text="" runat="server"></asp:Label>
@@ -173,8 +173,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input11" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop11" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error11" text="" runat="server"></asp:Label>
@@ -187,8 +187,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input12" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop12" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error12" text="" runat="server"></asp:Label>
@@ -208,8 +208,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input13" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop13" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error13" text="" runat="server"></asp:Label>
@@ -222,8 +222,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input14" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop14" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="%"/>
                                             <asp:ListItem Text="Валута"/>
+                                            <asp:ListItem Text="%"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error14" text="" runat="server"></asp:Label>
@@ -280,7 +280,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = <%=Math.Round(pogaseni,2)%> + " BGN";
+                in2td1.innerHTML = <%=pogaseni%> + " BGN";
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -292,7 +292,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = <%=Math.Round(taksi,2)%> + " BGN";
+                in3td1.innerHTML = <%=taksi%> + " BGN";
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
@@ -304,7 +304,7 @@
                 tr4.appendChild(inth4);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in4td1");
-                in4td1.innerHTML = <%=Math.Round(lihvi,2)%> + " BGN";
+                in4td1.innerHTML = <%=lihvi%> + " BGN";
                 tr4.appendChild(in4td1);
                 tbody.appendChild(tr4);
 
@@ -316,7 +316,7 @@
                 tr5.appendChild(inth5);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in5td1");
-                in4td1.innerHTML = <%=Math.Round(vnoski,2)%> + " BGN";
+                in4td1.innerHTML = <%=vnoski%> + " BGN";
                 tr5.appendChild(in4td1);
                 tbody.appendChild(tr5);
 
