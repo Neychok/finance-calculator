@@ -211,6 +211,10 @@ namespace FinanceCalculator
                     temp = 0.0;
                     temp2 = 0.0;
                 }
+                else //Ако е във валута
+                {
+                    monthFee_upr = monthFee_upr * Months;
+                }
             }
 
             if (!String.IsNullOrWhiteSpace(input14.Text)) //МЕСЕЧНА ТАКСА ДРУГА
@@ -234,6 +238,10 @@ namespace FinanceCalculator
                     monthFee_drug = temp;
                     temp = 0.0;
                     temp2 = 0.0;
+                }
+                else //Ако е във валута
+                {
+                    monthFee_drug = monthFee_drug * Months;
                 }
             }
 
