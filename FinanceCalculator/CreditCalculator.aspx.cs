@@ -45,10 +45,10 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            double creditAmount = 0.0, interestRate = 0.0; 
-            int Months;
+            double creditAmount = 0.0, interestRate = 0.0,promoInterest = 0.0, promoVnoski = 0.0,Vnoska_glavnica = 0.0,Ostat_glavnica=0.0; 
+            int Months = 0,promoMonths = 0,tempMonths = 0;
             double years = 0.0;
-            double monthlyPayments = 0.0, R = 0.0, temp = 0.0, temp2 = 0.0;
+            double monthlyPayments = 0.0, temp = 0.0, temp2 = 0.0;
             double fee_kandi = 0.0, fee_obrabot = 0.0, fee_drug = 0.0, yearFee_upr = 0.0, yearFee_drug = 0.0, monthFee_upr = 0.0, monthFee_drug = 0.0; // Такси
             bool _error = false;
 
@@ -57,7 +57,10 @@ namespace FinanceCalculator
             creditAmount = double.Parse(input1.Text);
             Months = int.Parse(input2.Text);
             interestRate = double.Parse(input3.Text);
-                //Проверка
+
+            interestRate = interestRate / 100; //Превръщане на лихвата в проценти
+
+            //Проверка
             if (creditAmount < 100)
             {
                 _error = true;
@@ -73,13 +76,72 @@ namespace FinanceCalculator
                 _error = true;
                 error3.Text = "Моля въведете коректно число за лихва";
             }
-                //Сметки
-            interestRate = interestRate / 100.0;
-            R = interestRate / 12.0;
-            double a = 1.0 + R;
-            double b = Math.Pow(a, -Months);
-            monthlyPayments = creditAmount * R / (1 - b);
-            vnoski = (decimal)monthlyPayments * Months;
+
+            //Промоционални месеци
+            if (!String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text))
+            {
+                promoMonths = int.Parse(input5.Text);
+                promoInterest = int.Parse(input6.Text);
+                promoInterest = promoInterest / 100; //Превръщане на лихвата в проценти
+                if (promoMonths >= Months || promoMonths <=0)
+                {
+                    _error = true;
+                    error5.Text = "Моля въведете коректно число за промоционални месеци";
+                }
+                if (promoInterest < 0)
+                {
+                    _error = true;
+                    error5.Text = "Моля въведете коректно число за промоционалнa лихва";
+                }
+                if (_error == false) //СМЕТКИ, с промо
+                {
+                    for (int i = 0; i < Months; i++)
+                    {
+                        Ostat_glavnica = creditAmount - Vnoska_glavnica;
+                        if (i < promoMonths)
+                        {
+                            temp = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
+                            temp2 = MesechnaVnoska(promoInterest, 1, Ostat_glavnica) - Ostat_glavnica;
+                        }
+                        else
+                        {
+                            temp = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
+                            temp2 = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
+                        }
+                        Vnoska_glavnica = Vnoska_glavnica + (temp - temp2);
+                        vnoski += (decimal)temp;
+                    }
+                    temp = 0.0;
+                    temp2 = 0.0;
+                }
+            }
+            else if (String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text)) //Ако първото поле е празно
+            {
+                _error = true;
+                error5.Text = "Моля въведете число за промоционални месеци";
+            }
+            else if(!String.IsNullOrWhiteSpace(input5.Text) && String.IsNullOrWhiteSpace(input6.Text)) //Ако второто поле е празно
+            {
+                _error = true;
+                error6.Text = "Моля въведете число за промоционална лихва";
+            }
+
+            if(_error == false) //СМЕТКИ, без промо
+            {
+                for (int i = 0; i < Months; i++)
+                {
+                    Ostat_glavnica = creditAmount - Vnoska_glavnica;
+                    temp = MesechnaVnoska(interestRate, Months-i, Ostat_glavnica);
+                    temp2 = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
+                    Vnoska_glavnica = Vnoska_glavnica + (temp - temp2);
+                    vnoski += (decimal)temp;
+                }
+                temp = 0.0;
+                temp2 = 0.0;
+
+            }
+
+            // //
 
             if ((Months / 12.0) > 1.0) //Брой години
             {
@@ -248,7 +310,7 @@ namespace FinanceCalculator
             if (_error == false)
             {
                 //ГПР
-                GPR = ((decimal)Math.Pow(a, 12) - 1) * 100;
+                GPR = ((decimal)Math.Pow((interestRate/12) + 1.0, 12) - 1) * 100;
 
                 //ЛИХВИ
                 lihvi = vnoski - (decimal)creditAmount;
@@ -275,5 +337,13 @@ namespace FinanceCalculator
                 //Пети ред ------ ВНОСКИ
             }
         }
+        protected double MesechnaVnoska(double interest,int months,double credit)
+        { 
+            double b = Math.Pow((interest/12)+1.0, -months);
+            double monthlyPayments = credit * (interest/12) / (1 - b);
+            return monthlyPayments;
+        }
     }
 }
+
+            
