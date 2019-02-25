@@ -45,12 +45,12 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            double creditAmount = 0.0, interestRate = 0.0,promoInterest = 0.0, promoVnoski = 0.0,Vnoska_glavnica = 0.0,Ostat_glavnica=0.0; 
-            int Months = 0,promoMonths = 0,tempMonths = 0;
+            double creditAmount = 0.0, interestRate = 0.0,promoInterest = 0.0,Vnoska_glavnica = 0.0,Ostat_glavnica=0.0;
+            int Months = 0, promoMonths = 0;
             double years = 0.0;
-            double monthlyPayments = 0.0, temp = 0.0, temp2 = 0.0;
+            double mesecLihva = 0.0, mesecVnoska = 0.0;
             double fee_kandi = 0.0, fee_obrabot = 0.0, fee_drug = 0.0, yearFee_upr = 0.0, yearFee_drug = 0.0, monthFee_upr = 0.0, monthFee_drug = 0.0; // Такси
-            bool _error = false;
+            bool _error = false, promo = false;
 
             //ВНОСКИ - Input/проверка/сметки
                 //Input
@@ -61,87 +61,21 @@ namespace FinanceCalculator
             interestRate = interestRate / 100; //Превръщане на лихвата в проценти
 
             //Проверка
-            if (creditAmount < 100)
+            if (creditAmount < 100) //ГРЕШКА - Ако кредита е по-малък от 100лв
             {
                 _error = true;
                 error1.Text = "Моля въведете размер на кредита по - голям от 100";
             }
-            if (Months <= 0 || Months > 960)
+            if (Months <= 0 || Months > 960)//ГРЕШКА - Ако месеците са по-малко от 0 и по-големи от 960
             {
                 _error = true;
                 error2.Text = "Моля въведете коректно число за срок (до 960 месеца)";
             }
-            if (interestRate < 0)
+            if (interestRate < 0)//ГРЕШКА - Ако лихвата е под 0
             {
                 _error = true;
                 error3.Text = "Моля въведете коректно число за лихва";
             }
-
-            //Промоционални месеци
-            if (!String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text))
-            {
-                promoMonths = int.Parse(input5.Text);
-                promoInterest = int.Parse(input6.Text);
-                promoInterest = promoInterest / 100; //Превръщане на лихвата в проценти
-                if (promoMonths >= Months || promoMonths <=0)
-                {
-                    _error = true;
-                    error5.Text = "Моля въведете коректно число за промоционални месеци";
-                }
-                if (promoInterest < 0)
-                {
-                    _error = true;
-                    error5.Text = "Моля въведете коректно число за промоционалнa лихва";
-                }
-                if (_error == false) //СМЕТКИ, с промо
-                {
-                    for (int i = 0; i < Months; i++)
-                    {
-                        Ostat_glavnica = creditAmount - Vnoska_glavnica;
-                        if (i < promoMonths)
-                        {
-                            temp = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
-                            temp2 = MesechnaVnoska(promoInterest, 1, Ostat_glavnica) - Ostat_glavnica;
-                        }
-                        else
-                        {
-                            temp = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
-                            temp2 = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
-                        }
-                        Vnoska_glavnica = Vnoska_glavnica + (temp - temp2);
-                        vnoski += (decimal)temp;
-                    }
-                    temp = 0.0;
-                    temp2 = 0.0;
-                }
-            }
-            else if (String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text)) //Ако първото поле е празно
-            {
-                _error = true;
-                error5.Text = "Моля въведете число за промоционални месеци";
-            }
-            else if(!String.IsNullOrWhiteSpace(input5.Text) && String.IsNullOrWhiteSpace(input6.Text)) //Ако второто поле е празно
-            {
-                _error = true;
-                error6.Text = "Моля въведете число за промоционална лихва";
-            }
-
-            if(_error == false) //СМЕТКИ, без промо
-            {
-                for (int i = 0; i < Months; i++)
-                {
-                    Ostat_glavnica = creditAmount - Vnoska_glavnica;
-                    temp = MesechnaVnoska(interestRate, Months-i, Ostat_glavnica);
-                    temp2 = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
-                    Vnoska_glavnica = Vnoska_glavnica + (temp - temp2);
-                    vnoski += (decimal)temp;
-                }
-                temp = 0.0;
-                temp2 = 0.0;
-
-            }
-
-            // //
 
             if ((Months / 12.0) > 1.0) //Брой години
             {
@@ -149,11 +83,43 @@ namespace FinanceCalculator
                 years = Math.Floor(years);
             }
 
-            //ТАКСИ - Input / Проверка / Трансформиране в проценти / Сметки
-            if (!String.IsNullOrWhiteSpace(input8.Text)) //ТАКСА КАНДИДАТСТВАНЕ
+            //ПРОМОЦИОНАЛНИ МЕСЕЦИ
+            if (!String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text))
+            {
+                promoMonths = int.Parse(input5.Text);
+                promoInterest = int.Parse(input6.Text);
+                promoInterest = promoInterest / 100; //Превръщане на лихвата в проценти
+                if (promoMonths >= Months || promoMonths <=0) //ГРЕШКА - Ако промоционалните месеци са по-малко или равни на 0; са повече от 
+                {
+                    _error = true;
+                    error5.Text = "Моля въведете коректно число за промоционални месеци";
+                }
+                if (promoInterest < 0) //ГРЕШКА - Ако промоционалната лихва е по-малка от 0
+                {
+                    _error = true;
+                    error5.Text = "Моля въведете коректно число за промоционалнa лихва";
+                }
+                if (_error == false) // ПРОМО = True
+                {
+                    promo = true;
+                }
+            }
+            else if (String.IsNullOrWhiteSpace(input5.Text) && !String.IsNullOrWhiteSpace(input6.Text)) //ГРЕШКА - Ако първото поле е празно
+            {
+                _error = true;
+                error5.Text = "Моля въведете число за промоционални месеци";
+            }
+            else if(!String.IsNullOrWhiteSpace(input5.Text) && String.IsNullOrWhiteSpace(input6.Text)) //ГРЕШКА - Ако второто поле е празно
+            {
+                _error = true;
+                error6.Text = "Моля въведете число за промоционална лихва";
+            }
+
+            //ТАКСИ
+            if (!String.IsNullOrWhiteSpace(input8.Text)) //ТАКСА КАНДИДАТСТВАНЕ - Процент от целия кредит / Единична фиксирана сума
             {
                 fee_kandi = double.Parse(input8.Text);
-                if (fee_kandi < 0 || fee_kandi >= creditAmount)
+                if (fee_kandi < 0 || fee_kandi >= creditAmount) //ГРЕШКА - Ако такса кандидатстване е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error8.Text = "Моля въведете коректно число за такса кандидатстване";
@@ -161,29 +127,36 @@ namespace FinanceCalculator
                 if (drop8.SelectedIndex == 1) //Ако е в проценти
                 {
                     fee_kandi = fee_kandi / 100;
-                    fee_kandi = creditAmount * fee_kandi;
+                    taksi = taksi + (decimal)(creditAmount * fee_kandi);
+                }else
+                {
+                    taksi +=(decimal)fee_kandi;
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input9.Text)) //ТАКСА ОБРАБОТКА
+            if (!String.IsNullOrWhiteSpace(input9.Text)) //ТАКСА ОБРАБОТКА - Процент от целия кредит / Единична фиксирана сума
             {
                 fee_obrabot = double.Parse(input9.Text);
-                if (fee_obrabot < 0 || fee_obrabot >= creditAmount)
+                if (fee_obrabot < 0 || fee_obrabot >= creditAmount) //ГРЕШКА - Ако такса обработка е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error9.Text = "Моля въведете коректно число за такса обработване";
                 }
-                if (drop9.SelectedIndex == 1) //Ако е в проценти
+                if (drop9.SelectedIndex == 0) //Ако е в проценти
                 {
                     fee_obrabot = fee_obrabot / 100;
-                    fee_obrabot = creditAmount * fee_obrabot;
+                    taksi = taksi + (decimal)(creditAmount * fee_obrabot);
+                }
+                else
+                {
+                    taksi +=(decimal)fee_obrabot;
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input10.Text)) //ДРУГИ ТАКСИ
+            if (!String.IsNullOrWhiteSpace(input10.Text)) //ДРУГИ ТАКСИ - Процент от целия кредит / Единична фиксирана сума
             {
                 fee_drug = double.Parse(input10.Text);
-                if (fee_drug < 0 || fee_drug >= creditAmount)
+                if (fee_drug < 0 || fee_drug >= creditAmount) //ГРЕШКА - Ако друга такса е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error10.Text = "Моля въведете коректно число за други такси";
@@ -191,41 +164,32 @@ namespace FinanceCalculator
                 if (drop10.SelectedIndex == 1) //Ако е в проценти
                 {
                     fee_drug = fee_drug / 100;
-                    fee_drug = creditAmount * fee_drug;
+                    taksi = taksi + (decimal)(creditAmount * fee_drug);
+                }
+                else
+                {
+                    taksi +=(decimal)fee_drug;
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input11.Text) && years >= 1) //ГОДИШНА ТАКСА УПРАВЛЕНИЕ
+            if (!String.IsNullOrWhiteSpace(input11.Text) && years >= 1) //ГОДИШНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница на първия месец на следващата година / фиксирана сума 
             {
                 yearFee_upr = double.Parse(input11.Text);
-                if (yearFee_upr < 0 || yearFee_upr >= creditAmount)
+                if (yearFee_upr < 0 || yearFee_upr >= creditAmount) //ГРЕШКА - Ако годишна такса управление е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error11.Text = "Моля въведете коректно число за годишна такса";
                 }
-                if (drop11.SelectedIndex == 1) //Ако е в проценти
+                if (drop11.SelectedIndex == 0) //Ако е в проценти
                 {
                     yearFee_upr = yearFee_upr / 100;
-                    temp2 = (double)vnoski;
-                    for (int i = 0; i < years; i++)
-                    {
-                        temp = temp + ((temp2 - (monthlyPayments * 12)) * yearFee_upr);
-                        temp2 = temp2 - (monthlyPayments * 12);
-                    }
-                    yearFee_upr = temp;
-                    temp = 0.0;
-                    temp2 = 0.0;
-                }
-                else //Ако е във валута
-                {
-                    yearFee_upr = yearFee_upr * years;
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input12.Text) && years >= 1) //ГОДИШНА ТАКСА ДРУГА
+            if (!String.IsNullOrWhiteSpace(input12.Text) && years >= 1) //ГОДИШНА ТАКСА ДРУГА - Процент от вносната главница на първия месец на следващата година / фиксирана сума
             {
                 yearFee_drug = double.Parse(input12.Text);
-                if (yearFee_drug < 0 || yearFee_drug >= creditAmount)
+                if (yearFee_drug < 0 || yearFee_drug >= creditAmount) //ГРЕШКА - Ако друга годишна такса е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error12.Text = "Моля въведете коректно число за годишна такса";
@@ -233,54 +197,27 @@ namespace FinanceCalculator
                 if (drop12.SelectedIndex == 1) //Ако е в проценти
                 {
                     yearFee_drug = yearFee_drug / 100;
-                    temp2 = (double)vnoski;
-                    for (int i = 0; i < years; i++)
-                    {
-                        temp = temp + ((temp2 - (monthlyPayments * 12)) * yearFee_drug);
-                        temp2 = temp2 - (monthlyPayments * 12);
-                    }
-                    yearFee_drug = temp;
-                    temp = 0.0;
-                    temp2 = 0.0;
-                }
-                else //Ако е във валута
-                {
-                    yearFee_drug = yearFee_drug * years; 
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input13.Text)) //МЕСЕЧНА ТАКСА УПРАВЛЕНИЕ
+            if (!String.IsNullOrWhiteSpace(input13.Text)) //МЕСЕЧНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница / фиксирана сума
             {
                 monthFee_upr = double.Parse(input13.Text);
-                if (monthFee_upr < 0 || monthFee_upr >= creditAmount)
+                if (monthFee_upr < 0 || monthFee_upr >= creditAmount) //ГРЕШКА - Ако месечна такса обработка е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error13.Text = "Моля въведете коректно число за месечна такса";
                 }
-                if (drop13.SelectedIndex == 1) //Ако е в проценти
+                if (drop13.SelectedIndex == 0) //Ако е в проценти
                 {
                     monthFee_upr = monthFee_upr / 100;
-                    temp2 = (double)vnoski;
-                    temp = temp2 * monthFee_upr;
-                    for (int i = 1; i < Months; i++)
-                    {
-                        temp = temp + (temp2 - monthlyPayments) * monthFee_upr;
-                        temp2 = temp2 - monthlyPayments;
-                    }
-                    monthFee_upr = temp;
-                    temp = 0.0;
-                    temp2 = 0.0;
-                }
-                else //Ако е във валута
-                {
-                    monthFee_upr = monthFee_upr * Months;
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input14.Text)) //МЕСЕЧНА ТАКСА ДРУГА
+            if (!String.IsNullOrWhiteSpace(input14.Text)) //МЕСЕЧНА ТАКСА ДРУГА  Процент от вносната главница / фиксирана сума
             {
                 monthFee_drug = double.Parse(input14.Text);
-                if (monthFee_drug < 0 || monthFee_drug >= creditAmount)
+                if (monthFee_drug < 0 || monthFee_drug >= creditAmount) //ГРЕШКА - Ако друга месечна такса е по-малка от 0 или е по-голяма или равна на кредита
                 {
                     _error = true;
                     error14.Text = "Моля въведете коректно число за месечна такса";
@@ -288,53 +225,100 @@ namespace FinanceCalculator
                 if (drop14.SelectedIndex == 1) //Ако е в проценти
                 {
                     monthFee_drug = monthFee_drug / 100;
-                    temp2 = (double)vnoski;
-                    temp = temp2 * monthFee_drug;
-                    for (int i = 1; i < Months; i++)
-                    {
-                        temp = temp + (temp2 - monthlyPayments) * monthFee_drug;
-                        temp2 = temp2 - monthlyPayments;
-                    }
-                    monthFee_drug = temp;
-                    temp = 0.0;
-                    temp2 = 0.0;
-                }
-                else //Ако е във валута
-                {
-                    monthFee_drug = monthFee_drug * Months;
                 }
             }
 
 
-            //СМЕТКИ
-            if (_error == false)
+            if (_error == false) //СМЕТКИ
             {
+                // temp = Месечна вноска
+                for (int i = 0; i < Months; i++)
+                {
+                    Ostat_glavnica = creditAmount - Vnoska_glavnica;
+                    if (i < promoMonths && promo == true)
+                    {
+                        mesecVnoska = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
+                        mesecLihva = MesechnaVnoska(promoInterest, 1, Ostat_glavnica) - Ostat_glavnica;
+                    }
+                    else
+                    {
+                        mesecVnoska = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
+                        mesecLihva = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
+                    }
+                    Vnoska_glavnica = Vnoska_glavnica + (mesecVnoska - mesecLihva);
+
+                    //Вноски
+                    vnoski += (decimal)mesecVnoska;
+
+                    //Лихви
+                    lihvi += (decimal)mesecLihva;
+
+                    //Пресмятане на месечните такси
+                    if (!String.IsNullOrWhiteSpace(input13.Text))
+                    {
+                        if (drop13.SelectedIndex == 0) // Управление
+                        {
+                            taksi = taksi + (decimal)(Ostat_glavnica * monthFee_upr);
+                        }
+                        else
+                        {
+                            taksi = taksi + (decimal)monthFee_upr;
+                        }
+                    }
+                    if (!String.IsNullOrWhiteSpace(input14.Text))
+                    {
+                        if (drop14.SelectedIndex == 1) // Други
+                        {
+                            taksi = taksi + (decimal)(Ostat_glavnica * monthFee_drug);
+                        }
+                        else
+                        {
+                            taksi = taksi + (decimal)monthFee_drug;
+                        }
+                    }
+                    //Пресмятане на годишните такси
+                    if (i % 12 == 0 && i != 0)
+                    {
+                        if (!String.IsNullOrWhiteSpace(input11.Text)) // Управление
+                        {
+                            if (drop11.SelectedIndex == 0) 
+                            {
+                                taksi = taksi + (decimal)Ostat_glavnica * (decimal)yearFee_upr;
+                            }
+                            else
+                            {
+                                taksi = taksi + (decimal)yearFee_upr;
+                            }
+                        }
+                        if (!String.IsNullOrWhiteSpace(input12.Text)) // Други
+                        {
+                            if (drop12.SelectedIndex == 1)
+                            {
+                                taksi = taksi + (decimal)Ostat_glavnica * (decimal)yearFee_drug;
+                            }
+                            else
+                            {
+                                taksi = taksi + (decimal)yearFee_drug;
+                            }
+                        }
+                    }
+
+                    //Погасени
+                    pogaseni = vnoski + taksi;
+                }
+
                 //ГПР
-                GPR = ((decimal)Math.Pow((interestRate/12) + 1.0, 12) - 1) * 100;
-
-                //ЛИХВИ
-                lihvi = vnoski - (decimal)creditAmount;
-
-                //ТАКСИ 
-                taksi = (decimal)fee_kandi + (decimal)fee_drug + (decimal)fee_obrabot + (decimal)monthFee_upr + (decimal)monthFee_drug + (decimal)yearFee_upr + (decimal)yearFee_drug;
-
-                //ПОГАСЕНИ
-                pogaseni = vnoski + taksi;
+                GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1) * 100;
 
                 // Закръгляне на числата
                 taksi = Decimal.Round(taksi, 2);
-                vnoski =Decimal.Round(vnoski, 2);
+                vnoski = Decimal.Round(vnoski, 2);
                 pogaseni = Decimal.Round(pogaseni, 2);
                 GPR = Decimal.Round(GPR, 4);
                 lihvi = Decimal.Round(lihvi, 2);
 
                 //Таблица
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
-                //Първи ред ----- ГОДИШЕН ПРОЦЕНТЕН РАЗХОД
-                //Втори ред ----- ПОГАСЕНИ С ЛИХВИ И ТАКСИ
-                //Трети ред ----- ТАКСИ И КОМИСИОННИ
-                //Четвърти ред -- ЛИХВИ
-                //Пети ред ------ ВНОСКИ
             }
         }
         protected double MesechnaVnoska(double interest,int months,double credit)

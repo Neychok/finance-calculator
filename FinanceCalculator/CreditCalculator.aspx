@@ -173,8 +173,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input11" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop11" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="Валута"/>
                                             <asp:ListItem Text="%"/>
+                                            <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error11" text="" runat="server"></asp:Label>
@@ -208,8 +208,8 @@
                                         <span class="input-group-addon">$</span>
                                         <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input13" placeholder="В % или валута" runat="server"></asp:TextBox>
                                         <asp:DropDownList class="form-control" ID="drop13" AppendDataBoundItems="true" runat="server">
-                                            <asp:ListItem Text="Валута"/>
                                             <asp:ListItem Text="%"/>
+                                            <asp:ListItem Text="Валута"/>
                                         </asp:DropDownList>
                                     </div>
                                     <asp:Label class="col-sm-6 control-label" id="error13" text="" runat="server"></asp:Label>
