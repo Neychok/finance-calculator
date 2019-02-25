@@ -31,17 +31,17 @@ namespace FinanceCalculator
         //Input1 = Credit Amount / Размер на кредит -- Валута -------
         //Input2 = Months / Срок --------------------- Месеци -------
         //Input3 = Interest Rate / Лихва ------------- % ------------
-        //Input4 = Credit Type / Вид вноски ---------- Вид ----------
+        //Input4 = Credit Type / Вид вноски ---------- Вид ---------- drop_vid
         //Input5 = Промоционален перид --------------- Месеци -------
         //Input6 = Промоционална лихва --------------- % ------------
         //Input7 = Гратисен период ------------------- Месеци -------
-        //Input8 = Такса кандидатстване -------------- % или валута -
-        //Input9 = Такса обработка ------------------- % или валута -
-        //Input10 = Други такси ---------------------- % или валута -
-        //Input11 = Годишна такса управление --------- % или валута -
-        //Input12 = Други годишни такси -------------- % или валута -
-        //Input13 = Месечна такса управление --------- % или валута -
-        //Input14 = Други месечни такси -------------- % или валута -
+        //Input8 = Такса кандидатстване -------------- % или валута - drop8
+        //Input9 = Такса обработка ------------------- % или валута - drop9
+        //Input10 = Други такси ---------------------- % или валута - drop10
+        //Input11 = Годишна такса управление --------- % или валута - drop11
+        //Input12 = Други годишни такси -------------- % или валута - drop12
+        //Input13 = Месечна такса управление --------- % или валута - drop13
+        //Input14 = Други месечни такси -------------- % или валута - drop14
 
         protected void CalculateResult(object sender, EventArgs e)
         {
@@ -231,21 +231,49 @@ namespace FinanceCalculator
 
             if (_error == false) //СМЕТКИ
             {
-                // temp = Месечна вноска
-                for (int i = 0; i < Months; i++)
+                Ostat_glavnica = creditAmount;
+
+                for (int i = 0; i < Months; i++) //Цикъл, който смята за всеки месец от периода на кредита
                 {
-                    Ostat_glavnica = creditAmount - Vnoska_glavnica;
+                     Ostat_glavnica -= Vnoska_glavnica; //Остатък главница
+
+                    if (drop_vid.SelectedIndex == 1) //За намаляващи вноски - Вноска главница
+                    {
+                        Vnoska_glavnica = creditAmount / Months;
+                    }//
+
                     if (i < promoMonths && promo == true)
                     {
-                        mesecVnoska = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
-                        mesecLihva = MesechnaVnoska(promoInterest, 1, Ostat_glavnica) - Ostat_glavnica;
+                        mesecLihva = Ostat_glavnica * promoInterest / 12; //Месечна лихва (Промо)
+
+                        if (drop_vid.SelectedIndex == 0) //За анюитетни вноски - Месечна вноска (Промо)
+                        {
+                            mesecVnoska = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
+                        }//
+
+                        if (drop_vid.SelectedIndex == 1) //За намаляващи вноски - Месечна вноска (Промо)
+                        {
+                            mesecVnoska = Vnoska_glavnica + mesecLihva;
+                        }//
                     }
                     else
                     {
-                        mesecVnoska = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
-                        mesecLihva = MesechnaVnoska(interestRate, 1, Ostat_glavnica) - Ostat_glavnica;
+                        mesecLihva = Ostat_glavnica * interestRate / 12; //Месечна лихва
+
+                        if (drop_vid.SelectedIndex == 0) //За анюитетни вноски - Месечна вноска
+                        {
+                            mesecVnoska = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
+                        }//
+
+                        if (drop_vid.SelectedIndex == 1) //За намаляващи вноски - Месечна вноска
+                        {
+                            mesecVnoska = Vnoska_glavnica + mesecLihva;
+                        }//
                     }
-                    Vnoska_glavnica = Vnoska_glavnica + (mesecVnoska - mesecLihva);
+                    if (drop_vid.SelectedIndex == 0) //За анюитетни вноски - Вноска главница
+                    {
+                        Vnoska_glavnica = mesecVnoska - mesecLihva;
+                    }//
 
                     //Вноски
                     vnoski += (decimal)mesecVnoska;
