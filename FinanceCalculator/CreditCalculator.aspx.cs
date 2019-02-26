@@ -26,8 +26,9 @@ namespace FinanceCalculator
             error13.Text = "";
             error14.Text = "";
         }
-        //public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
-        public string _GPR, _vnoski, _lihvi, _taksi, _pogaseni;
+        public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+
+        //public string _GPR, _vnoski, _lihvi, _taksi, _pogaseni;
 
 
         //Input1 = Credit Amount / Размер на кредит -- Валута -------
@@ -47,7 +48,8 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+            //decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+
             double creditAmount = 0.0, interestRate = 0.0, promoInterest = 0.0, Vnoska_glavnica = 0.0, Ostat_glavnica = 0.0;
             int Months = 0, promoMonths = 0,gratis = 0;
             double years = 0.0;
@@ -373,22 +375,22 @@ namespace FinanceCalculator
                 GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1) * 100;
 
                 // Закръгляне на числата
-                /*
+                ///*
                 taksi = Decimal.Round(taksi, 2);
                 vnoski = Decimal.Round(vnoski, 2);
                 pogaseni = Decimal.Round(pogaseni, 2);
                 GPR = Decimal.Round(GPR, 4);
                 lihvi = Decimal.Round(lihvi, 2);
-                */
+                //*/
 
-                //Превръщане в String
-                ///*
+                //Превръщане в String с форматиране
+                /*
                 _taksi = taksi.ToString("C");
                 _vnoski = vnoski.ToString("C");
                 _pogaseni = pogaseni.ToString("C");
                 _GPR = GPR.ToString("P");
                 _lihvi = lihvi.ToString("C");
-                //*/
+                */
 
                 //Таблица
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
