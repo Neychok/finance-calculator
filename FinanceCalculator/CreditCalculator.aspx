@@ -268,7 +268,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = <%=GPR%> + " %";
+                in1td1.innerHTML = <%=_GPR%>;
                 tr1.appendChild(in1td1);
                 tbody.appendChild(tr1);
 
@@ -280,7 +280,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = <%=pogaseni%> + " BGN";
+                in2td1.innerHTML = <%=_pogaseni%>;
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -292,7 +292,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = <%=taksi%> + " BGN";
+                in3td1.innerHTML = <%=_taksi%>;
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
@@ -304,7 +304,7 @@
                 tr4.appendChild(inth4);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in4td1");
-                in4td1.innerHTML = <%=lihvi%> + " BGN";
+                in4td1.innerHTML = <%=_lihvi%>;
                 tr4.appendChild(in4td1);
                 tbody.appendChild(tr4);
 
@@ -314,10 +314,10 @@
                 inth5.setAttribute("scope", "row");
                 inth5.innerHTML = "Вноски";
                 tr5.appendChild(inth5);
-                var in4td1 = document.createElement("td");
-                in4td1.setAttribute("id", "in5td1");
-                in4td1.innerHTML = <%=vnoski%> + " BGN";
-                tr5.appendChild(in4td1);
+                var in5td1 = document.createElement("td");
+                in5td1.setAttribute("id", "in5td1");
+                in5td1.innerHTML = <%=_vnoski%>;
+                tr5.appendChild(in5td1);
                 tbody.appendChild(tr5);
 
                 /*Attach table to results div & attach results div to page body*/
