@@ -56,6 +56,8 @@
                 <a href="https://stackoverflow.com/questions/3276798/asp-net-dropdownlist-html-select-list-default-selection" target="_blank">Dropdown hax for default value</a>
                 <br/>
                 <a href="https://stackoverflow.com/questions/19233415/how-to-make-type-number-to-positive-numbers-only" target="_blank">Make input accept floats as well as integers and keep them all positive</a>
+                <br/>
+                <a href="https://stackoverflow.com/questions/9743038/how-do-i-add-a-thousand-seperator-to-a-number-in-javascript?fbclid=IwAR2fJxSj-aQZU_EgDgLR2uXXo_nbBzRD4kqDvEj4yVewAaWqqdvSBDlKpfE" target="_blank">Format table output by thousands</a>
             </p>
         </body>
     </html>
