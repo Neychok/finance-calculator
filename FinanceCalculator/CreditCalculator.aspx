@@ -314,10 +314,10 @@
                 inth5.setAttribute("scope", "row");
                 inth5.innerHTML = "Вноски";
                 tr5.appendChild(inth5);
-                var in4td1 = document.createElement("td");
-                in4td1.setAttribute("id", "in5td1");
-                in4td1.innerHTML = addCommas(<%=vnoski%>)+ " лв";
-                tr5.appendChild(in4td1);
+                var in5td1 = document.createElement("td");
+                in5td1.setAttribute("id", "in5td1");
+                in5td1.innerHTML = addCommas(<%=vnoski%>)+ " лв";
+                tr5.appendChild(in5td1);
                 tbody.appendChild(tr5);
 
                 /*Attach table to results div & attach results div to page body*/
