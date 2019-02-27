@@ -251,12 +251,14 @@ namespace FinanceCalculator
 
             //МАСИВ С ДАННИТЕ ЗА ВСЕКИ МЕСЕЦ
             array = new decimal[Months + 1, 7];
-                // Колона 0 = Номер
-                // Колона 1 = Вноска главница
-                // Колона 2 = Вноска лихва
-                // Колона 3 = Остатък главница
-                // Колона 4 = Такси и комисионни
-                // Колона 5 = Паричен поток
+
+            // Колона 0 = Номер
+            // Колона 1 = Месечна вноска
+            // Колона 2 = Вноска главница
+            // Колона 3 = Вноска лихва
+            // Колона 4 = Остатък главница
+            // Колона 5 = Такси и комисионни
+            // Колона 6 = Паричен поток
 
             if (_error == false) //СМЕТКИ
             {
@@ -417,6 +419,7 @@ namespace FinanceCalculator
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
             }
         }
+
         protected decimal MesechnaVnoska(double interest, int months, decimal credit)
         {
             decimal b = (decimal)Math.Pow((interest / 12) + 1.0, -months);
