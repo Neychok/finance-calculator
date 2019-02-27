@@ -323,16 +323,113 @@
                 /*Attach table to results div & attach results div to page body*/
                 div.appendChild(table);
                 main.appendChild(div);
+
+                /////////////////////////////////////////////////////////////////
+                ////////////////////////Погасителен план/////////////////////////
+                /////////////////////////////////////////////////////////////////
+
+                /*Create an empty table*/
+                var main = document.getElementById("mainContainer");
+                var div = document.createElement("div");
+                div.setAttribute("class", "jumbotron text-center col-md-10");
+                div.setAttribute("id", "creditResultDiv2");
+                var paragraph = document.createElement("p");
+                paragraph.innerHTML = "Погасителен план";
+                div.appendChild(paragraph);
+                var table = document.createElement("table");
+                table.setAttribute("class", "table table-bordered");
+                var thead = document.createElement("thead");
+                table.appendChild(thead);
+                var th1 = document.createElement("th");
+                th1.setAttribute("scope", "col");
+                th1.innerHTML = "№";
+                thead.appendChild(th1);
+                var th2 = document.createElement("th");
+                th2.setAttribute("scope", "col");
+                th2.innerHTML = "Дата";
+                thead.appendChild(th2);
+                var th3 = document.createElement("th");
+                th3.setAttribute("scope", "col");
+                th3.innerHTML = "Месечна вноска";
+                thead.appendChild(th3);
+                var th4 = document.createElement("th");
+                th4.setAttribute("scope", "col");
+                th4.innerHTML = "Вноска главница";
+                thead.appendChild(th4);
+                var th5 = document.createElement("th");
+                th5.setAttribute("scope", "col");
+                th5.innerHTML = "Вноска лихва";
+                thead.appendChild(th5);
+                var th6 = document.createElement("th");
+                th6.setAttribute("scope", "col");
+                th6.innerHTML = "Остатък главница";
+                thead.appendChild(th6);
+                var th7 = document.createElement("th");
+                th7.setAttribute("scope", "col");
+                th7.innerHTML = "Такси и комисионни";
+                thead.appendChild(th7);
+                var th8 = document.createElement("th");
+                th8.setAttribute("scope", "col");
+                th8.innerHTML = "Паричен поток";
+                thead.appendChild(th8);
+                var tbody = document.createElement("tbody");
+                table.appendChild(tbody);
+
+                /*Create table rows*/
+                var numOfMonths = <%=Months%>;
+                var monthlyInfo = <%=array%>;
+
+                for (var i = 0; i < numOfMonths; i++) {
+                    var tr1 = document.createElement("tr");
+                    var inth1 = document.createElement("th");
+                    inth1.setAttribute("scope", "row");
+                    inth1.innerHTML = monthlyInfo[i][0];
+                    tr1.appendChild(inth1);
+                    var in1td1 = document.createElement("td");
+                    in1td1.setAttribute("id", "in1td1");
+                    in1td1.innerHTML = "28.02.2019";
+                    tr1.appendChild(in1td1);
+                    var in1td2 = document.createElement("td");
+                    in1td2.setAttribute("id", "in1td2");
+                    in1td2.innerHTML = monthlyInfo[i][1];
+                    tr1.appendChild(in1td2);
+                    var in1td3 = document.createElement("td");
+                    in1td3.setAttribute("id", "in1td3");
+                    in1td3.innerHTML = monthlyInfo[i][2];
+                    tr1.appendChild(in1td3);
+                    var in1td4 = document.createElement("td");
+                    in1td4.setAttribute("id", "in1td3");
+                    in1td4.innerHTML = monthlyInfo[i][3];
+                    tr1.appendChild(in1td4);
+                    var in1td5 = document.createElement("td");
+                    in1td5.setAttribute("id", "in1td3");
+                    in1td5.innerHTML = monthlyInfo[i][4];
+                    tr1.appendChild(in1td5);
+                    var in1td6 = document.createElement("td");
+                    in1td6.setAttribute("id", "in1td3");
+                    in1td6.innerHTML = monthlyInfo[i][5];
+                    tr1.appendChild(in1td6);
+                    var in1td7 = document.createElement("td");
+                    in1td7.setAttribute("id", "in1td3");
+                    in1td7.innerHTML = monthlyInfo[i][6];
+                    tr1.appendChild(in1td7);
+                    tbody.appendChild(tr1);
+                }
+
+                /*Attach table to results div & attach results div to page body*/
+                div.appendChild(table);
+                main.appendChild(div);
             }
+
             function addCommas(n){
-            var rx=  /(\d+)(\d{3})/;
-                return String(n).replace(/^\d+/, function (w) {
-                    while (rx.test(w)) {
-                        w = w.replace(rx, '$1 $2');
+                var rx=  /(\d+)(\d{3})/;
+                return String(n).replace(/^\d+/, function(w){
+                    while(rx.test(w)){
+                        w= w.replace(rx, '$1 $2');
                     }
                     return w;
                 });
-}
+            }
         </script>
     </html>
 </asp:Content>
