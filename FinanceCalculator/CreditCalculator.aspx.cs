@@ -28,6 +28,7 @@ namespace FinanceCalculator
             error14.Text = "";
         }
         public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+        public int Months = 0;
         //public string _GPR, _vnoski, _lihvi, _taksi, _pogaseni;
         public decimal[,] array;
 
@@ -53,7 +54,7 @@ namespace FinanceCalculator
             //decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
 
             double creditAmount = 0.0, interestRate = 0.0, promoInterest = 0.0;
-            int Months = 0, promoMonths = 0,gratis = 0;
+            int promoMonths = 0,gratis = 0;
             decimal years = 0.0m;
             decimal mesecLihva = 0.0m, mesecVnoska = 0.0m, potok = 0.0m, Vnoska_glavnica = 0.0m, Ostat_glavnica = 0.0m, mesecTaksi = 0.0m;
             decimal fee_kandi = 0.0m, fee_obrabot = 0.0m, fee_drug = 0.0m, yearFee_upr = 0.0m, yearFee_drug = 0.0m, monthFee_upr = 0.0m, monthFee_drug = 0.0m; // Такси
