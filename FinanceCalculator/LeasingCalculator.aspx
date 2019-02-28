@@ -72,7 +72,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
                                     <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input5" placeholder="В % или валута" runat="server"></asp:TextBox>
-                                    <asp:DropDownList class="form-control" AppendDataBoundItems="true" runat="server">
+                                    <asp:DropDownList class="form-control"  ID="drop5" AppendDataBoundItems="true" runat="server">
                                         <asp:ListItem Text="%"/>
                                         <asp:ListItem Text="Валута"/>
                                     </asp:DropDownList>
@@ -120,7 +120,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = <%= val %> + " %";
+                in1td1.innerHTML =   " %";
                 tr1.appendChild(in1td1);
                 tbody.appendChild(tr1);
 
