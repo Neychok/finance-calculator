@@ -375,9 +375,24 @@
                 var numOfMonths = <%=Months%>;
                 <% var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); %>
                 var monthlyInfo = <%= serializer.Serialize(array) %>;
-                
+                var currentDate = new Date();
+                var currentDay = currentDate.getDate();
+                var currentMonth = currentDate.getMonth();
+                var currentYear = currentDate.getFullYear();
+                currentDate = new Date(currentYear, currentMonth - 1, currentDay);
 
-                  for (var i = 0; i < numOfMonths+1; i++) {
+                for (var i = 0; i < numOfMonths + 1; i++) {
+                    var newDate = currentDate.addMonths(1);
+                    var newDay = newDate.getDate();
+                    var newMonth = newDate.getMonth() + 1;
+                    if ((newDay > 0) && (newDay < 10)) {
+                        newDay = "0" + newDay;
+                    }
+                    if ((newMonth > 0) && (newMonth < 10)) {
+                        newMonth = "0" + newMonth;
+                    }
+                    var newYear = newDate.getFullYear();
+                    var date = newDay + "." + newMonth + "." + newYear;
                     var tr1 = document.createElement("tr");
                     var inth1 = document.createElement("th"); //Номер месец
                     inth1.setAttribute("scope", "row");
@@ -385,7 +400,7 @@
                     tr1.appendChild(inth1);
                     var in1td1 = document.createElement("td"); //Дата
                     in1td1.setAttribute("id", "in1td1");
-                    in1td1.innerHTML = "28.02.2019";
+                    in1td1.innerHTML = date;
                     tr1.appendChild(in1td1);
                     var in1td2 = document.createElement("td"); //Месечна вноска
                     in1td2.setAttribute("id", "in1td2");
@@ -428,6 +443,30 @@
                     return w;
                 });
             }
+
+            Date.isLeapYear = function (year) { 
+                return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)); 
+            };
+
+            Date.getDaysInMonth = function (year, month) {
+                return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+            };
+
+            Date.prototype.isLeapYear = function () { 
+                return Date.isLeapYear(this.getFullYear()); 
+            };
+
+            Date.prototype.getDaysInMonth = function () { 
+                return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
+            };
+
+            Date.prototype.addMonths = function (value) {
+                var n = this.getDate();
+                this.setDate(1);
+                this.setMonth(this.getMonth() + value);
+                this.setDate(Math.min(n, this.getDaysInMonth()));
+                return this;
+            };
         </script>
     </html>
 </asp:Content>
