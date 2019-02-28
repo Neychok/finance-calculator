@@ -417,12 +417,6 @@ namespace FinanceCalculator
             decimal monthlyPayments = credit * ((decimal)interest / 12) / (1 - b);
             return monthlyPayments;
         }
-        /*
-        public static string Serialize(object o)
-        {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            return js.Serialize(o);
-        }*/
 
         protected void FillArr(int num,decimal mesecVnoska, decimal vnoskaGlavnica, decimal vnoskaLihva, decimal ostatukGlavnica, decimal taksi, decimal potok)
         {
