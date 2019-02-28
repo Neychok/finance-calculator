@@ -58,6 +58,10 @@
                 <a href="https://stackoverflow.com/questions/19233415/how-to-make-type-number-to-positive-numbers-only" target="_blank">Make input accept floats as well as integers and keep them all positive</a>
                 <br/>
                 <a href="https://stackoverflow.com/questions/9743038/how-do-i-add-a-thousand-seperator-to-a-number-in-javascript?fbclid=IwAR2fJxSj-aQZU_EgDgLR2uXXo_nbBzRD4kqDvEj4yVewAaWqqdvSBDlKpfE" target="_blank">Format table output by thousands</a>
+                <br/>
+                <a href="https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript" target="_blank">Get current date</a>
+                <br/>
+                <a href="https://stackoverflow.com/questions/5645058/how-to-add-months-to-a-date-in-javascript" target="_blank">Add months to a date</a>
             </p>
         </body>
     </html>
