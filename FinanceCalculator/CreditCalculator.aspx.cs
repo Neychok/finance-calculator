@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.VisualBasic;
-
+using System.Web.Script.Serialization;
 namespace FinanceCalculator
 {
     public partial class CreditCalculator : System.Web.UI.Page
@@ -29,10 +24,7 @@ namespace FinanceCalculator
         }
         public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
         public int Months = 0;
-        //public string _GPR, _vnoski, _lihvi, _taksi, _pogaseni;
         public decimal[,] array;
-
-
 
         //Input1 = Credit Amount / Размер на кредит -- Валута -------
         //Input2 = Months / Срок --------------------- Месеци -------
@@ -170,7 +162,7 @@ namespace FinanceCalculator
                 }
                 else
                 {
-                    taksi += (decimal)fee_obrabot;
+                    taksi += fee_obrabot;
                 }
             }
 
@@ -189,7 +181,7 @@ namespace FinanceCalculator
                 }
                 else
                 {
-                    taksi += (decimal)fee_drug;
+                    taksi += fee_drug;
                 }
             }
 
@@ -326,10 +318,10 @@ namespace FinanceCalculator
                     }
 
                     //Вноски
-                    vnoski += (decimal)mesecVnoska;
+                    vnoski += mesecVnoska;
 
                     //Лихви
-                    lihvi += (decimal)mesecLihva;
+                    lihvi += mesecLihva;
 
                     //Пресмятане на месечните такси
                     mesecTaksi = 0.0m;
@@ -337,23 +329,23 @@ namespace FinanceCalculator
                     {
                         if (drop13.SelectedIndex == 0) // Управление
                         {
-                            mesecTaksi += (decimal)(Ostat_glavnica * monthFee_upr);
+                            mesecTaksi += (Ostat_glavnica * monthFee_upr);
                         }
                         else
                         {
 
-                            mesecTaksi += (decimal)monthFee_upr;
+                            mesecTaksi += monthFee_upr;
                         }
                     }
                     if (!String.IsNullOrWhiteSpace(input14.Text))
                     {
                         if (drop14.SelectedIndex == 1) // Други
                         {
-                            mesecTaksi += (decimal)(Ostat_glavnica * monthFee_drug);
+                            mesecTaksi += (Ostat_glavnica * monthFee_drug);
                         }
                         else
                         {
-                            mesecTaksi += (decimal)monthFee_drug;
+                            mesecTaksi += monthFee_drug;
                         }
                     }
                     //Пресмятане на годишните такси
@@ -363,32 +355,33 @@ namespace FinanceCalculator
                         {
                             if (drop11.SelectedIndex == 0)
                             {
-                                mesecTaksi += (decimal)Ostat_glavnica * (decimal)yearFee_upr;
+                                mesecTaksi += Ostat_glavnica * yearFee_upr;
                             }
                             else
                             {
-                                mesecTaksi += (decimal)yearFee_upr;
+                                mesecTaksi += yearFee_upr;
                             }
                         }
                         if (!String.IsNullOrWhiteSpace(input12.Text)) // Други
                         {
                             if (drop12.SelectedIndex == 1)
                             {
-                                mesecTaksi += (decimal)Ostat_glavnica * (decimal)yearFee_drug;
+                                mesecTaksi += Ostat_glavnica * yearFee_drug;
                             }
                             else
                             {
-                                mesecTaksi += (decimal)yearFee_drug;
+                                mesecTaksi += yearFee_drug;
                             }
                         }
                     }
                     taksi += mesecTaksi;
 
                     //Паричен поток
-                    potok = potok - (mesecTaksi + mesecVnoska);
+                    potok = -(mesecTaksi + mesecVnoska);
 
                     //МАСИВ С ДАННИТЕ ЗА ВСЕКИ МЕСЕЦ
-                    FillArr(i + 1, mesecVnoska,Vnoska_glavnica,mesecLihva,Ostat_glavnica,mesecTaksi,potok);
+                    FillArr(i+1, mesecVnoska,Vnoska_glavnica,mesecLihva,Ostat_glavnica,mesecTaksi,potok);
+
                 }
 
                 //Погасени
@@ -398,13 +391,11 @@ namespace FinanceCalculator
                 GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1) * 100;
 
                 // Закръгляне на числата
-                ///*
-                taksi = Decimal.Round(taksi, 2);
-                vnoski = Decimal.Round(vnoski, 2);
-                pogaseni = Decimal.Round(pogaseni, 2);
-                GPR = Decimal.Round(GPR, 4);
-                lihvi = Decimal.Round(lihvi, 2);
-                //*/
+                taksi = Decimal.Round(taksi, 2, MidpointRounding.AwayFromZero);
+                vnoski = Decimal.Round(vnoski, 2, MidpointRounding.AwayFromZero);
+                pogaseni = Decimal.Round(pogaseni, 2, MidpointRounding.AwayFromZero);
+                GPR = Decimal.Round(GPR, 4, MidpointRounding.AwayFromZero);
+                lihvi = Decimal.Round(lihvi, 2, MidpointRounding.AwayFromZero);
 
                 //Превръщане в String с форматиране
                 /*
@@ -426,15 +417,22 @@ namespace FinanceCalculator
             decimal monthlyPayments = credit * ((decimal)interest / 12) / (1 - b);
             return monthlyPayments;
         }
+        /*
+        public static string Serialize(object o)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            return js.Serialize(o);
+        }*/
+
         protected void FillArr(int num,decimal mesecVnoska, decimal vnoskaGlavnica, decimal vnoskaLihva, decimal ostatukGlavnica, decimal taksi, decimal potok)
         {
             array[num, 0] = num;
-            array[num, 1] = mesecVnoska;
-            array[num, 2] = vnoskaGlavnica;
-            array[num, 3] = vnoskaLihva;
-            array[num, 4] = ostatukGlavnica;
-            array[num, 5] = taksi;
-            array[num, 6] = potok;
+            array[num, 1] = Decimal.Round(mesecVnoska,2, MidpointRounding.AwayFromZero);
+            array[num, 2] = Decimal.Round(vnoskaGlavnica,2, MidpointRounding.AwayFromZero);
+            array[num, 3] = Decimal.Round(vnoskaLihva,2, MidpointRounding.AwayFromZero);
+            array[num, 4] = Decimal.Round(ostatukGlavnica,2, MidpointRounding.AwayFromZero);
+            array[num, 5] = Decimal.Round(taksi,2, MidpointRounding.AwayFromZero);
+            array[num, 6] = Decimal.Round(potok,2, MidpointRounding.AwayFromZero);
         }
     }
 }

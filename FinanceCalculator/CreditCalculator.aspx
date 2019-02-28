@@ -324,10 +324,6 @@
                 div.appendChild(table);
                 main.appendChild(div);
 
-                /////////////////////////////////////////////////////////////////
-                ////////////////////////Погасителен план/////////////////////////
-                /////////////////////////////////////////////////////////////////
-
                 /*Create an empty table*/
                 var main = document.getElementById("mainContainer");
                 var div = document.createElement("div");
@@ -377,41 +373,43 @@
 
                 /*Create table rows*/
                 var numOfMonths = <%=Months%>;
-                var monthlyInfo = <%=array%>;
+                <% var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); %>
+                var monthlyInfo = <%= serializer.Serialize(array) %>;
+                
 
-                for (var i = 0; i < numOfMonths; i++) {
+                  for (var i = 0; i < numOfMonths+1; i++) {
                     var tr1 = document.createElement("tr");
-                    var inth1 = document.createElement("th");
+                    var inth1 = document.createElement("th"); //Номер месец
                     inth1.setAttribute("scope", "row");
-                    inth1.innerHTML = monthlyInfo[i][0];
+                    inth1.innerHTML = monthlyInfo[0+(7*i)];
                     tr1.appendChild(inth1);
-                    var in1td1 = document.createElement("td");
+                    var in1td1 = document.createElement("td"); //Дата
                     in1td1.setAttribute("id", "in1td1");
                     in1td1.innerHTML = "28.02.2019";
                     tr1.appendChild(in1td1);
-                    var in1td2 = document.createElement("td");
+                    var in1td2 = document.createElement("td"); //Месечна вноска
                     in1td2.setAttribute("id", "in1td2");
-                    in1td2.innerHTML = monthlyInfo[i][1];
+                    in1td2.innerHTML = addCommas(monthlyInfo[1+(7*i)]);
                     tr1.appendChild(in1td2);
-                    var in1td3 = document.createElement("td");
+                    var in1td3 = document.createElement("td"); //Вноска главница
                     in1td3.setAttribute("id", "in1td3");
-                    in1td3.innerHTML = monthlyInfo[i][2];
+                    in1td3.innerHTML = addCommas(monthlyInfo[2+(7*i)]);
                     tr1.appendChild(in1td3);
-                    var in1td4 = document.createElement("td");
-                    in1td4.setAttribute("id", "in1td3");
-                    in1td4.innerHTML = monthlyInfo[i][3];
+                    var in1td4 = document.createElement("td"); //Вноска лихва
+                    in1td4.setAttribute("id", "in1td4");
+                    in1td4.innerHTML = addCommas(monthlyInfo[3+(7*i)]);
                     tr1.appendChild(in1td4);
-                    var in1td5 = document.createElement("td");
-                    in1td5.setAttribute("id", "in1td3");
-                    in1td5.innerHTML = monthlyInfo[i][4];
+                    var in1td5 = document.createElement("td"); //Остатък главница
+                    in1td5.setAttribute("id", "in1td5");
+                    in1td5.innerHTML = addCommas(monthlyInfo[4+(7*i)]);
                     tr1.appendChild(in1td5);
-                    var in1td6 = document.createElement("td");
-                    in1td6.setAttribute("id", "in1td3");
-                    in1td6.innerHTML = monthlyInfo[i][5];
+                    var in1td6 = document.createElement("td"); //Такси
+                    in1td6.setAttribute("id", "in1td6");
+                    in1td6.innerHTML = addCommas(monthlyInfo[5+(7*i)]);
                     tr1.appendChild(in1td6);
-                    var in1td7 = document.createElement("td");
-                    in1td7.setAttribute("id", "in1td3");
-                    in1td7.innerHTML = monthlyInfo[i][6];
+                    var in1td7 = document.createElement("td"); //Паричен поток
+                    in1td7.setAttribute("id", "in1td7");
+                    in1td7.innerHTML = addCommas(monthlyInfo[6+(7*i)]);
                     tr1.appendChild(in1td7);
                     tbody.appendChild(tr1);
                 }
@@ -420,7 +418,14 @@
                 div.appendChild(table);
                 main.appendChild(div);
             }
-
+            function arrayTo2DArray1(list, howMany) {
+                var result = []
+                input = list.slice(0)
+                while (a[0]) {
+                    result.push(a.splice(0, howMany))
+                }
+                return result
+            }
             function addCommas(n){
                 var rx=  /(\d+)(\d{3})/;
                 return String(n).replace(/^\d+/, function(w){
