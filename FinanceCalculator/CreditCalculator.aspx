@@ -418,6 +418,16 @@
                 div.appendChild(table);
                 main.appendChild(div);
             }
+            
+            function addCommas(n){
+                var rx=  /(\d+)(\d{3})/;
+                return String(n).replace(/^\d+/, function(w){
+                    while(rx.test(w)){
+                        w= w.replace(rx, '$1 $2');
+                    }
+                    return w;
+                });
+            }
         </script>
     </html>
 </asp:Content>
