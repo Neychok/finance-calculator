@@ -68,7 +68,7 @@
                         <div class="text-center col-md-10">
                             <br />
                             <br />
-                            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#promoPeriod">Промоционален период</button>
+                            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#promoPeriod">Промоционален период тест</button>
                             <br />
                             <br />
                         </div>
