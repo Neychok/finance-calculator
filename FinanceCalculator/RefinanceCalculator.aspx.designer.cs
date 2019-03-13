@@ -22,6 +22,15 @@ namespace FinanceCalculator {
         protected global::System.Web.UI.WebControls.TextBox input1;
         
         /// <summary>
+        /// error1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error1;
+        
+        /// <summary>
         /// input2 control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace FinanceCalculator {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input2;
+        
+        /// <summary>
+        /// error2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error2;
         
         /// <summary>
         /// input3 control.
@@ -40,6 +58,15 @@ namespace FinanceCalculator {
         protected global::System.Web.UI.WebControls.TextBox input3;
         
         /// <summary>
+        /// error3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error3;
+        
+        /// <summary>
         /// input4 control.
         /// </summary>
         /// <remarks>
@@ -47,6 +74,15 @@ namespace FinanceCalculator {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input4;
+        
+        /// <summary>
+        /// error4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error4;
         
         /// <summary>
         /// input5 control.
@@ -58,6 +94,15 @@ namespace FinanceCalculator {
         protected global::System.Web.UI.WebControls.TextBox input5;
         
         /// <summary>
+        /// error5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error5;
+        
+        /// <summary>
         /// input6 control.
         /// </summary>
         /// <remarks>
@@ -65,6 +110,15 @@ namespace FinanceCalculator {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input6;
+        
+        /// <summary>
+        /// error6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error6;
         
         /// <summary>
         /// input7 control.
@@ -76,6 +130,15 @@ namespace FinanceCalculator {
         protected global::System.Web.UI.WebControls.TextBox input7;
         
         /// <summary>
+        /// error7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error7;
+        
+        /// <summary>
         /// input8 control.
         /// </summary>
         /// <remarks>
@@ -83,6 +146,15 @@ namespace FinanceCalculator {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input8;
+        
+        /// <summary>
+        /// error8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label error8;
         
         /// <summary>
         /// calculateButton control.

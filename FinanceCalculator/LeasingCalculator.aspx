@@ -31,7 +31,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input1" required="required" placeholder="Моля въведете цена" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="100" step="1" class="form-control input-sm" id="input1" required="required" placeholder="Моля въведете цена" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error1" text="" runat="server"></asp:Label>
                             </div>
@@ -41,7 +41,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input2" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0" step="1" class="form-control input-sm" id="input2" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error2" text="" runat="server"></asp:Label>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error3" text="" runat="server"></asp:Label>
                             </div>
@@ -61,7 +61,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input4" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input4" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error4" text="" runat="server"></asp:Label>
                             </div>
@@ -71,7 +71,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input5" placeholder="В % или валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0" step="0.01" class="form-control input-sm" id="input5" placeholder="В % или валута" runat="server"></asp:TextBox>
                                     <asp:DropDownList class="form-control"  ID="drop5" AppendDataBoundItems="true" runat="server">
                                         <asp:ListItem Text="%"/>
                                         <asp:ListItem Text="Валута"/>
@@ -132,7 +132,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = 11100 + " BGN";
+                in2td1.innerHTML = <%=obshto_izplateno%>;
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -144,7 +144,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = 100 + " BGN";
+                in3td1.innerHTML = <%=obshto_taksi%>;
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 

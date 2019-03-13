@@ -31,7 +31,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input1" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input1" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error1" text="" runat="server"></asp:Label>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input3" required="required" placeholder="В месеци" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error3" text="" runat="server"></asp:Label>
                             </div>
@@ -61,7 +61,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input4" required="required" placeholder="Моля въведете броя вноски" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input4" required="required" placeholder="Моля въведете броя вноски" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error4" text="" runat="server"></asp:Label>
                             </div>
@@ -108,7 +108,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input8" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="1" step="1" class="form-control input-sm" id="input8" required="required" placeholder="Във валута" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error8" text="" runat="server"></asp:Label>
                             </div>
@@ -262,6 +262,14 @@
                 in5td3.innerHTML = -2518.46;
                 tr5.appendChild(in5td3);
                 tbody.appendChild(tr5);
+
+                /*Sixth table row*/
+                var tr6 = document.createElement("tr");
+                var intd6 = document.createElement("td");
+                intd6.setAttribute("id", "col");
+                intd6.innerHTML = "ИЗГОДНО";
+                tr6.appendChild(intd6);
+                tbody.appendChild(tr6);
 
                 /*Attach table to results div & attach results div to page body*/
                 div.appendChild(table);
