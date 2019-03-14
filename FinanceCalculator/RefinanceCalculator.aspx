@@ -171,7 +171,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = <%= val %> + " %";
+                in1td1.innerHTML = " %";
                 tr1.appendChild(in1td1);
                 var in1td2 = document.createElement("td");
                 in1td2.setAttribute("id", "in1td2");
@@ -266,7 +266,8 @@
                 /*Sixth table row*/
                 var tr6 = document.createElement("tr");
                 var intd6 = document.createElement("td");
-                intd6.setAttribute("id", "col");
+                intd6.setAttribute("id", "intd6");
+                intd6.setAttribute("colspan", "4");
                 intd6.innerHTML = "ИЗГОДНО";
                 tr6.appendChild(intd6);
                 tbody.appendChild(tr6);

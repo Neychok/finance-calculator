@@ -132,7 +132,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = <%=obshto_izplateno%>;
+                in2td1.innerHTML = addCommas(<%=obshto_izplateno%>);
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -144,13 +144,22 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = <%=obshto_taksi%>;
+                in3td1.innerHTML = addCommas(<%=obshto_taksi%>);
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
                 /*Attach table to results div & attach results div to page body*/
                 div.appendChild(table);
                 main.appendChild(div);
+            }
+                        function addCommas(n){
+                var rx=  /(\d+)(\d{3})/;
+                return String(n).replace(/^\d+/, function(w){
+                    while(rx.test(w)){
+                        w= w.replace(rx, '$1 $2');
+                    }
+                    return w;
+                });
             }
         </script>
     </html>
