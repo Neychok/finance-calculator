@@ -209,7 +209,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = <%=predsrokTaksa%>;
+                in3td1.innerHTML = "<%=_predsrokTaksa%>";
                 tr3.appendChild(in3td1);
                 var in3td2 = document.createElement("td");
                 in3td2.setAttribute("id", "in3td2");
@@ -229,15 +229,15 @@
                 tr4.appendChild(inth4);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in4td1");
-                in4td1.innerHTML = <%=T_vnoska%>;
+                in4td1.innerHTML = "<%=_T_vnoska%>";
                 tr4.appendChild(in4td1);
                 var in4td2 = document.createElement("td");
                 in4td2.setAttribute("id", "in4td2");
-                in4td2.innerHTML = <%=N_vnoska%>;
+                in4td2.innerHTML = "<%=_N_vnoska%>";
                 tr4.appendChild(in4td2);
                 var in4td3 = document.createElement("td");
                 in4td3.setAttribute("id", "in4td3");
-                in4td3.innerHTML = <%=spestVnoska%>;
+                in4td3.innerHTML = "<%=_spestVnoska%>";
                 tr4.appendChild(in4td3);
                 tbody.appendChild(tr4);
 
@@ -249,15 +249,15 @@
                 tr5.appendChild(inth5);
                 var in5td1 = document.createElement("td");
                 in5td1.setAttribute("id", "in5td1");
-                in5td1.innerHTML = <%=T_izplateni%>;
+                in5td1.innerHTML = "<%=_T_izplateni%>";
                 tr5.appendChild(in5td1);
                 var in5td2 = document.createElement("td");
                 in5td2.setAttribute("id", "in5td2");
-                in5td2.innerHTML = <%=N_izplateni%>;
+                in5td2.innerHTML = "<%=_N_izplateni%>";
                 tr5.appendChild(in5td2);
                 var in5td3 = document.createElement("td");
                 in5td3.setAttribute("id", "in5td3");
-                in5td3.innerHTML = <%=spestIzplateni%>;
+                in5td3.innerHTML = "<%=_spestIzplateni%>";
                 tr5.appendChild(in5td3);
                 tbody.appendChild(tr5);
 
@@ -266,7 +266,7 @@
                 var intd6 = document.createElement("td");
                 intd6.setAttribute("id", "intd6");
                 intd6.setAttribute("colspan", "4");
-                intd6.innerHTML = "";
+                intd6.innerHTML = "<%=izgodno%>";
                 tr6.appendChild(intd6);
                 tbody.appendChild(tr6);
 

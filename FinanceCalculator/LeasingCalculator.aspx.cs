@@ -13,7 +13,7 @@ namespace FinanceCalculator
             error5.Text = "";
         }
 
-        public decimal GPR = 0.0m, obshto_izplateno = 0.0m, obshto_taksi = 0.0m;
+        public string _GPR, _obshto_izplateno, _obshto_taksi;
 
         //Input1 = Цена на стоката
         //Input2 = Първоначална вноска
@@ -23,6 +23,7 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
+            decimal GPR = 0.0m, obshto_izplateno = 0.0m, obshto_taksi = 0.0m;
             decimal cena = 0.0m, purvaVnoska = 0.0m, period = 0.0m, mesecVnoska = 0.0m, taksa = 0.0m;
             bool _error = false;
 
@@ -108,6 +109,11 @@ namespace FinanceCalculator
                 obshto_izplateno = Decimal.Round(obshto_izplateno, 2);
                 obshto_taksi = Decimal.Round(obshto_taksi, 2);
                 GPR = Decimal.Round(GPR, 4);
+
+                //Форматиране в String
+                _obshto_izplateno = obshto_izplateno.ToString("C");
+                _obshto_taksi = obshto_taksi.ToString("C");
+                _GPR = GPR.ToString("C");
             }
             ScriptManager.RegisterStartupScript(this, GetType(), "showLeasingResult", "showLeasingResult()", true);
             // 1 - ГПР

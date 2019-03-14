@@ -12,7 +12,14 @@ namespace FinanceCalculator
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            error1.Text = "";
+            error2.Text = "";
+            error3.Text = "";
+            error4.Text = "";
+            error5.Text = "";
+            error6.Text = "";
+            error7.Text = "";
+            error8.Text = "";
         }
 
         //input1 - Размер на кредита
@@ -24,13 +31,14 @@ namespace FinanceCalculator
         //input7 - Първоначални такси % /нов кредит/
         //input8 - Първоначални такси Валута /нов кредит/
 
-        public decimal predsrokTaksa = 0, T_vnoska = 0, N_vnoska = 0, T_izplateni = 0, N_izplateni = 0, spestVnoska = 0, spestIzplateni = 0;
+        public string _predsrokTaksa, _T_vnoska, _N_vnoska, _T_izplateni, _N_izplateni, _spestVnoska, _spestIzplateni;
         public int T_srok = 0, N_srok = 0;
         public double T_lihva = 0, N_lihva = 0;
         public string izgodno = "";
 
         protected void CalculateResult(object sender, EventArgs e)
         {
+            decimal predsrokTaksa = 0, T_vnoska = 0, N_vnoska = 0, T_izplateni = 0, N_izplateni = 0, spestVnoska = 0, spestIzplateni = 0;
             int napraveniVnoski = 0;
             decimal purvTaksi_val = 0, purvTaksi_proc = 0, Ostat_glavnica = 0, mesecLihva = 0, vnoskaGlavnica = 0, mesecVnoska = 0, creditAmount = 0;
             bool _error = false;
@@ -126,13 +134,23 @@ namespace FinanceCalculator
                 N_vnoska = MesechnaVnoska(N_lihva, N_srok, creditAmount);
 
                 //ОБЩО ИЗПЛАТЕНИ /НОВ КРЕДИТ/
-                N_izplateni = N_vnoska * N_srok;
+                N_izplateni = (N_vnoska * N_srok) + predsrokTaksa + (creditAmount * (purvTaksi_proc / 100)) + purvTaksi_val;
 
                 //СПЕСТЯВАНИЯ /ВНОСКА/
                 spestVnoska = T_vnoska - N_vnoska;
 
                 //СПЕСТЯВАНИЯ /ИЗПЛАТЕНИ/
                 spestIzplateni = T_izplateni - N_izplateni;
+
+                //ПРОВЕРКА ЗА ИЗГОДНОСТ
+                if (spestIzplateni < 0)
+                {
+                    izgodno = "Офертата е НЕИЗГОДНА";
+                }
+                else
+                {
+                    izgodno = "Офертата е ИЗГОДНА";
+                }
 
                 //ЗАКРЪГЛЯНЕ
                 T_vnoska = Decimal.Round(T_vnoska, 2, MidpointRounding.AwayFromZero);
@@ -142,6 +160,15 @@ namespace FinanceCalculator
                 spestVnoska = Decimal.Round(spestVnoska, 2, MidpointRounding.AwayFromZero);
                 N_izplateni = Decimal.Round(N_izplateni, 2, MidpointRounding.AwayFromZero);
                 T_izplateni = Decimal.Round(T_izplateni, 2, MidpointRounding.AwayFromZero);
+
+                //Форматиране в String
+                _T_vnoska = T_vnoska.ToString("C");
+                _N_vnoska = N_vnoska.ToString("C");
+                _predsrokTaksa = predsrokTaksa.ToString("C");
+                _spestIzplateni = spestIzplateni.ToString("C");
+                _spestVnoska = spestVnoska.ToString("C");
+                _N_izplateni = N_izplateni.ToString("C");
+                _T_izplateni = T_izplateni.ToString("C");
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "showRefinanceResult", "showRefinanceResult()", true);
             }

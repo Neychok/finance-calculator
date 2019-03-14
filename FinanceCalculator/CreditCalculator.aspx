@@ -268,7 +268,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = addCommas(<%=GPR%>)+ " %";
+                in1td1.innerHTML = "<%=_GPR%>";
                 tr1.appendChild(in1td1);
                 tbody.appendChild(tr1);
 
@@ -280,7 +280,7 @@
                 tr2.appendChild(inth2);
                 var in2td1 = document.createElement("td");
                 in2td1.setAttribute("id", "in2td1");
-                in2td1.innerHTML = addCommas(<%=pogaseni%>)+ " лв";
+                in2td1.innerHTML = "<%=_pogaseni%>";
                 tr2.appendChild(in2td1);
                 tbody.appendChild(tr2);
 
@@ -292,7 +292,7 @@
                 tr3.appendChild(inth3);
                 var in3td1 = document.createElement("td");
                 in3td1.setAttribute("id", "in3td1");
-                in3td1.innerHTML = addCommas(<%=taksi%>)+ " лв";
+                in3td1.innerHTML = "<%=_taksi%>";
                 tr3.appendChild(in3td1);
                 tbody.appendChild(tr3);
 
@@ -304,7 +304,7 @@
                 tr4.appendChild(inth4);
                 var in4td1 = document.createElement("td");
                 in4td1.setAttribute("id", "in4td1");
-                in4td1.innerHTML = addCommas(<%=lihvi%>) + " лв";
+                in4td1.innerHTML = "<%=_lihvi%>";
                 tr4.appendChild(in4td1);
                 tbody.appendChild(tr4);
 
@@ -316,7 +316,7 @@
                 tr5.appendChild(inth5);
                 var in5td1 = document.createElement("td");
                 in5td1.setAttribute("id", "in5td1");
-                in5td1.innerHTML = addCommas(<%=vnoski%>)+ " лв";
+                in5td1.innerHTML = "<%=_vnoski%>";
                 tr5.appendChild(in5td1);
                 tbody.appendChild(tr5);
 
@@ -434,16 +434,6 @@
                 main.appendChild(div);
             }
             
-            function addCommas(n){
-                var rx=  /(\d+)(\d{3})/;
-                return String(n).replace(/^\d+/, function(w){
-                    while(rx.test(w)){
-                        w= w.replace(rx, '$1 $2');
-                    }
-                    return w;
-                });
-            }
-
             Date.isLeapYear = function (year) { 
                 return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)); 
             };

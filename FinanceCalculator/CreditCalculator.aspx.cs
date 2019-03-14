@@ -22,7 +22,7 @@ namespace FinanceCalculator
             error13.Text = "";
             error14.Text = "";
         }
-        public decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+        public string _GPR, _vnoski, _lihvi, _taksi, _pogaseni;
         public int Months = 0;
         public decimal[,] array;
 
@@ -43,7 +43,7 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            //decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
+            decimal GPR = 0, vnoski = 0, lihvi = 0, taksi = 0, pogaseni = 0;
 
             double creditAmount = 0.0, interestRate = 0.0, promoInterest = 0.0;
             int promoMonths = 0,gratis = 0;
@@ -388,7 +388,7 @@ namespace FinanceCalculator
                 pogaseni = vnoski + taksi;
 
                 //ГПР
-                GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1) * 100;
+                GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1);
 
                 // Закръгляне на числата
                 taksi = Decimal.Round(taksi, 2, MidpointRounding.AwayFromZero);
@@ -398,13 +398,13 @@ namespace FinanceCalculator
                 lihvi = Decimal.Round(lihvi, 2, MidpointRounding.AwayFromZero);
 
                 //Превръщане в String с форматиране
-                /*
+
                 _taksi = taksi.ToString("C");
                 _vnoski = vnoski.ToString("C");
                 _pogaseni = pogaseni.ToString("C");
                 _GPR = GPR.ToString("P");
                 _lihvi = lihvi.ToString("C");
-                */
+
 
                 //Таблица
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
