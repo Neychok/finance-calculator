@@ -71,7 +71,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <asp:TextBox type="number" min="0.01" step="0.01" class="form-control input-sm" id="input5" required="required" placeholder="В %" runat="server"></asp:TextBox>
+                                    <asp:TextBox type="number" min="0" step="0.01" class="form-control input-sm" id="input5" required="required" placeholder="В %" runat="server"></asp:TextBox>
                                 </div>
                                 <asp:Label class="col-sm-6 control-label" id="error5" text="" runat="server"></asp:Label>
                             </div>

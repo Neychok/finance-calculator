@@ -24,7 +24,8 @@ namespace FinanceCalculator
         protected void CalculateResult(object sender, EventArgs e)
         {
             decimal GPR = 0.0m, obshto_izplateno = 0.0m, obshto_taksi = 0.0m;
-            decimal cena = 0.0m, purvaVnoska = 0.0m, period = 0.0m, mesecVnoska = 0.0m, taksa = 0.0m;
+            decimal cena = 0.0m, purvaVnoska = 0.0m, mesecVnoska = 0.0m, taksa = 0.0m;
+            int period = 0;
             bool _error = false;
 
             //ЦЕНА НА СТОКАТА
@@ -44,7 +45,7 @@ namespace FinanceCalculator
             }
 
             //ПЕРИОД НА ЛИЗИНГА
-            period = decimal.Parse(input3.Text);
+            period = int.Parse(input3.Text);
             if (period > 120 || period <= 0) //ГРЕШКА - Периода на лизинга е по-голям от 120 месеца или е по-малък или равен на 0
             {
                 _error = true;
@@ -89,7 +90,7 @@ namespace FinanceCalculator
             if (_error == false)
             {
                 //----ГПР----
-                //Търси се формулата
+                
                 //
 
                 //----Общо такси----
@@ -113,7 +114,7 @@ namespace FinanceCalculator
                 //Форматиране в String
                 _obshto_izplateno = obshto_izplateno.ToString("C");
                 _obshto_taksi = obshto_taksi.ToString("C");
-                _GPR = GPR.ToString("C");
+                _GPR = GPR.ToString("P");
             }
             ScriptManager.RegisterStartupScript(this, GetType(), "showLeasingResult", "showLeasingResult()", true);
             // 1 - ГПР

@@ -58,8 +58,6 @@ namespace FinanceCalculator
             Months = int.Parse(input2.Text);
             interestRate = double.Parse(input3.Text, CultureInfo.InvariantCulture);
 
-            interestRate = interestRate / 100; //Превръщане на лихвата в проценти
-
             //Проверка
             if (creditAmount < 100 || creditAmount > 100000000) //ГРЕШКА - Ако кредита е по-малък от 100лв
             {
@@ -88,7 +86,6 @@ namespace FinanceCalculator
             {
                 promoMonths = int.Parse(input5.Text);
                 promoInterest = int.Parse(input6.Text, CultureInfo.InvariantCulture);
-                promoInterest = promoInterest / 100; //Превръщане на лихвата в проценти
                 if (promoMonths >= Months || promoMonths <= 0) //ГРЕШКА - Ако промоционалните месеци са по-малко или равни на 0; са повече от срока на кредита
                 {
                     _error = true;
@@ -254,6 +251,12 @@ namespace FinanceCalculator
 
             if (_error == false) //СМЕТКИ
             {
+                interestRate = interestRate / 100; //Превръщане на лихвата в проценти
+                if (promo == true)
+                {
+                    promoInterest = promoInterest / 100; //Превръщане на лихвата в проценти
+                }
+
                 Ostat_glavnica = (decimal)creditAmount;
                 FillArr(0, 0, 0, 0, Ostat_glavnica, taksi, (decimal)creditAmount - taksi); //Месец 0 - Плащат се само първоначалните такси
 
@@ -281,7 +284,7 @@ namespace FinanceCalculator
                         {
                             if (drop_vid.SelectedIndex == 0) //За анюитетни вноски - Месечна вноска (Промо)
                             {
-                                mesecVnoska = MesechnaVnoska(promoInterest, Months - i, Ostat_glavnica);
+                                mesecVnoska = (decimal)Microsoft.VisualBasic.Financial.Pmt(promoInterest / 12, Months - i, (double)-Ostat_glavnica);
                             }
 
                             if (drop_vid.SelectedIndex == 1) //За намаляващи вноски - Месечна вноска (Промо)
@@ -300,7 +303,7 @@ namespace FinanceCalculator
                         {
                             if (drop_vid.SelectedIndex == 0) //За анюитетни вноски - Месечна вноска
                             {
-                                mesecVnoska = MesechnaVnoska(interestRate, Months - i, Ostat_glavnica);
+                                mesecVnoska = (decimal)Microsoft.VisualBasic.Financial.Pmt(interestRate / 12, Months - i, (double)-Ostat_glavnica);
                             }
 
                             if (drop_vid.SelectedIndex == 1) //За намаляващи вноски - Месечна вноска
@@ -410,14 +413,15 @@ namespace FinanceCalculator
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
             }
         }
-
+        /* Заменено с Microsoft.VisualBasic.Financial.Pmt
+         *
         protected decimal MesechnaVnoska(double interest, int months, decimal credit)
         {
             decimal b = (decimal)Math.Pow((interest / 12) + 1.0, -months);
             decimal monthlyPayments = credit * ((decimal)interest / 12) / (1 - b);
             return monthlyPayments;
         }
-
+        */
         protected void FillArr(int num,decimal mesecVnoska, decimal vnoskaGlavnica, decimal vnoskaLihva, decimal ostatukGlavnica, decimal taksi, decimal potok)
         {
             array[num, 0] = num;

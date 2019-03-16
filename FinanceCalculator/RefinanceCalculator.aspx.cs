@@ -38,14 +38,14 @@ namespace FinanceCalculator
 
         protected void CalculateResult(object sender, EventArgs e)
         {
-            decimal predsrokTaksa = 0, T_vnoska = 0, N_vnoska = 0, T_izplateni = 0, N_izplateni = 0, spestVnoska = 0, spestIzplateni = 0;
+            double predsrokTaksa = 0, T_vnoska = 0, N_vnoska = 0, T_izplateni = 0, N_izplateni = 0, spestVnoska = 0, spestIzplateni = 0;
             int napraveniVnoski = 0;
-            decimal purvTaksi_val = 0, purvTaksi_proc = 0, Ostat_glavnica = 0, mesecLihva = 0, vnoskaGlavnica = 0, mesecVnoska = 0, creditAmount = 0;
+            double purvTaksi_val = 0, purvTaksi_proc = 0, Ostat_glavnica = 0, mesecLihva = 0, vnoskaGlavnica = 0, mesecVnoska = 0, creditAmount = 0;
             bool _error = false;
 
 
             //РАЗМЕР НА КРЕДИТА
-            creditAmount = decimal.Parse(input1.Text);
+            creditAmount = double.Parse(input1.Text);
             if (creditAmount <= 0 || creditAmount > 100000000) //ГРЕШКА - Размера на кредита е по-малък от 0 или по-голям от 100.000.000
             {
                 _error = true;
@@ -77,7 +77,7 @@ namespace FinanceCalculator
             }
 
             //ТАКСА ЗА ПРЕДСРОЧНО ПОГАСЯВАНЕ
-            predsrokTaksa = decimal.Parse(input5.Text, CultureInfo.InvariantCulture);
+            predsrokTaksa = double.Parse(input5.Text, CultureInfo.InvariantCulture);
             if (predsrokTaksa >= 100 || predsrokTaksa < 0)
             {
                 _error = true;
@@ -93,7 +93,7 @@ namespace FinanceCalculator
             }
 
             //ПЪРВОНАЧАЛНИ ТАКСИ /ПРОЦЕНТ/
-            purvTaksi_proc = decimal.Parse(input7.Text, CultureInfo.InvariantCulture);
+            purvTaksi_proc = double.Parse(input7.Text, CultureInfo.InvariantCulture);
             if (purvTaksi_proc >= 100 || purvTaksi_proc < 0)
             {
                 _error = true;
@@ -101,7 +101,7 @@ namespace FinanceCalculator
             }
 
             //ПЪРВОНАЧАЛНИ ТАКСИ /ВАЛУТА/
-            purvTaksi_val = decimal.Parse(input8.Text);
+            purvTaksi_val = double.Parse(input8.Text);
             if (purvTaksi_val >= creditAmount || purvTaksi_val < 0)
             {
                 _error = true;
@@ -110,6 +110,9 @@ namespace FinanceCalculator
 
             if (_error == false)
             {
+                T_lihva = T_lihva / 100;
+                N_lihva = N_lihva / 100;
+
                 //СРОК НА НОВ КРЕДИТ
                 N_srok = T_srok - napraveniVnoski;
 
@@ -118,20 +121,20 @@ namespace FinanceCalculator
                 for (int i = 0; i <= napraveniVnoski; i++)
                 {
                     Ostat_glavnica -= vnoskaGlavnica;
-                    mesecLihva = Ostat_glavnica * ((decimal)T_lihva / 12);
-                    mesecVnoska = MesechnaVnoska(T_lihva, T_srok - i, Ostat_glavnica);
+                    mesecLihva = Ostat_glavnica * (T_lihva / 12);
+                    mesecVnoska = Microsoft.VisualBasic.Financial.Pmt(T_lihva / 12, T_srok, -creditAmount);
                     vnoskaGlavnica = mesecVnoska - mesecLihva;
                 }
                 predsrokTaksa = Ostat_glavnica * (predsrokTaksa / 100);
 
                 //МЕСЕЧНА ВНОСКА /ТЕКУЩ КРЕДИТ/
-                T_vnoska = MesechnaVnoska(T_lihva, T_srok, creditAmount);
+                T_vnoska = Microsoft.VisualBasic.Financial.Pmt(T_lihva / 12, T_srok, -creditAmount);
 
                 //ОБЩО ИЗПЛАТЕНИ /ТЕКУЩ КРЕДИТ/
                 T_izplateni = T_vnoska * napraveniVnoski;
 
                 //МЕСЕЧНА ВНОСКА /НОВ КРЕДИТ/
-                N_vnoska = MesechnaVnoska(N_lihva, N_srok, creditAmount);
+                N_vnoska = Microsoft.VisualBasic.Financial.Pmt(N_lihva/12, N_srok, -Ostat_glavnica);
 
                 //ОБЩО ИЗПЛАТЕНИ /НОВ КРЕДИТ/
                 N_izplateni = (N_vnoska * N_srok) + predsrokTaksa + (creditAmount * (purvTaksi_proc / 100)) + purvTaksi_val;
@@ -153,13 +156,13 @@ namespace FinanceCalculator
                 }
 
                 //ЗАКРЪГЛЯНЕ
-                T_vnoska = Decimal.Round(T_vnoska, 2, MidpointRounding.AwayFromZero);
-                N_vnoska = Decimal.Round(N_vnoska, 2, MidpointRounding.AwayFromZero);
-                predsrokTaksa = Decimal.Round(predsrokTaksa, 2, MidpointRounding.AwayFromZero);
-                spestIzplateni = Decimal.Round(spestIzplateni, 2, MidpointRounding.AwayFromZero);
-                spestVnoska = Decimal.Round(spestVnoska, 2, MidpointRounding.AwayFromZero);
-                N_izplateni = Decimal.Round(N_izplateni, 2, MidpointRounding.AwayFromZero);
-                T_izplateni = Decimal.Round(T_izplateni, 2, MidpointRounding.AwayFromZero);
+                T_vnoska = Math.Round(T_vnoska, 2, MidpointRounding.AwayFromZero);
+                N_vnoska = Math.Round(N_vnoska, 2, MidpointRounding.AwayFromZero);
+                predsrokTaksa = Math.Round(predsrokTaksa, 2, MidpointRounding.AwayFromZero);
+                spestIzplateni = Math.Round(spestIzplateni, 2, MidpointRounding.AwayFromZero);
+                spestVnoska = Math.Round(spestVnoska, 2, MidpointRounding.AwayFromZero);
+                N_izplateni = Math.Round(N_izplateni, 2, MidpointRounding.AwayFromZero);
+                T_izplateni = Math.Round(T_izplateni, 2, MidpointRounding.AwayFromZero);
 
                 //Форматиране в String
                 _T_vnoska = T_vnoska.ToString("C");
@@ -172,12 +175,6 @@ namespace FinanceCalculator
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "showRefinanceResult", "showRefinanceResult()", true);
             }
-        }
-        protected decimal MesechnaVnoska(double interest, int months, decimal credit)
-        {
-            decimal b = (decimal)Math.Pow((interest / 12) + 1.0, -months);
-            decimal monthlyPayments = credit * ((decimal)interest / 12) / (1 - b);
-            return monthlyPayments;
         }
     }
 }
