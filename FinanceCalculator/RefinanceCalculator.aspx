@@ -171,11 +171,11 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML = <%=T_lihva%>;
+                in1td1.innerHTML = "<%=_T_lihva%>";
                 tr1.appendChild(in1td1);
                 var in1td2 = document.createElement("td");
                 in1td2.setAttribute("id", "in1td2");
-                in1td2.innerHTML = <%=N_lihva%>;
+                in1td2.innerHTML = "<%=_N_lihva%>";
                 tr1.appendChild(in1td2);
                 var in1td3 = document.createElement("td");
                 in1td3.setAttribute("id", "in1td3");

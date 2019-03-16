@@ -33,11 +33,12 @@ namespace FinanceCalculator
 
         public string _predsrokTaksa, _T_vnoska, _N_vnoska, _T_izplateni, _N_izplateni, _spestVnoska, _spestIzplateni;
         public int T_srok = 0, N_srok = 0;
-        public double T_lihva = 0, N_lihva = 0;
+        public string _T_lihva, _N_lihva;
         public string izgodno = "";
 
         protected void CalculateResult(object sender, EventArgs e)
         {
+            double T_lihva = 0, N_lihva = 0;
             double predsrokTaksa = 0, T_vnoska = 0, N_vnoska = 0, T_izplateni = 0, N_izplateni = 0, spestVnoska = 0, spestIzplateni = 0;
             int napraveniVnoski = 0;
             double purvTaksi_val = 0, purvTaksi_proc = 0, Ostat_glavnica = 0, mesecLihva = 0, vnoskaGlavnica = 0, mesecVnoska = 0, creditAmount = 0;
@@ -172,6 +173,8 @@ namespace FinanceCalculator
                 _spestVnoska = spestVnoska.ToString("C");
                 _N_izplateni = N_izplateni.ToString("C");
                 _T_izplateni = T_izplateni.ToString("C");
+                _T_lihva = T_lihva.ToString("P");
+                _N_lihva = N_lihva.ToString("P");
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "showRefinanceResult", "showRefinanceResult()", true);
             }
