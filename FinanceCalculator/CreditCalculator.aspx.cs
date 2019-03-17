@@ -392,6 +392,7 @@ namespace FinanceCalculator
 
                 //ГПР
                 GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1);
+                //GPR = (decimal)Microsoft.VisualBasic.Financial.Rate(Months,(double)-mesecVnoska,creditAmount-(double)taksi)*12;
 
                 // Закръгляне на числата
                 taksi = Decimal.Round(taksi, 2, MidpointRounding.AwayFromZero);
