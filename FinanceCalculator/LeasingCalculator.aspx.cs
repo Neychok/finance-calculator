@@ -10,6 +10,7 @@ namespace FinanceCalculator
             error1.Text = "";
             error2.Text = "";
             error3.Text = "";
+            error4.Text = "";
             error5.Text = "";
         }
 
@@ -89,10 +90,6 @@ namespace FinanceCalculator
             //СМЕТКИ
             if (_error == false)
             {
-                //----ГПР----
-                
-                //
-
                 //----Общо такси----
                 if (drop5.SelectedIndex == 0) //Ако е избрано "Проценти"
                 {
@@ -106,6 +103,10 @@ namespace FinanceCalculator
                 //----Общо изплатено----
                 obshto_izplateno = obshto_taksi + purvaVnoska + (mesecVnoska * period);
 
+                //----ГПР----
+                double interestGPR = Microsoft.VisualBasic.Financial.Rate(period, (double)-mesecVnoska, (double)(cena-purvaVnoska - obshto_taksi)) * 12;
+                GPR = (decimal)Math.Pow((interestGPR / 12) + 1.0, 12) - 1;
+
                 //----Закръгляне----
                 obshto_izplateno = Decimal.Round(obshto_izplateno, 2);
                 obshto_taksi = Decimal.Round(obshto_taksi, 2);
@@ -117,9 +118,6 @@ namespace FinanceCalculator
                 _GPR = GPR.ToString("P");
             }
             ScriptManager.RegisterStartupScript(this, GetType(), "showLeasingResult", "showLeasingResult()", true);
-            // 1 - ГПР
-            // 2 - Общо изплатено
-            // 3 - общо такси
         }
     }
 }

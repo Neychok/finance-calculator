@@ -53,7 +53,7 @@ namespace FinanceCalculator
             bool _error = false, promo = false, _gratis = false;
 
             //ВНОСКИ - Input/проверка/сметки
-            //Input
+            //Input на required
             creditAmount = double.Parse(input1.Text);
             Months = int.Parse(input2.Text);
             interestRate = double.Parse(input3.Text, CultureInfo.InvariantCulture);
@@ -384,23 +384,23 @@ namespace FinanceCalculator
 
                     //МАСИВ С ДАННИТЕ ЗА ВСЕКИ МЕСЕЦ
                     FillArr(i+1, mesecVnoska,Vnoska_glavnica,mesecLihva,Ostat_glavnica,mesecTaksi,potok);
-
                 }
 
                 //Погасени
                 pogaseni = vnoski + taksi;
 
                 //ГПР
-                GPR = ((decimal)Math.Pow((interestRate / 12) + 1.0, 12) - 1);
-                //GPR = (decimal)Microsoft.VisualBasic.Financial.Rate(Months,(double)-mesecVnoska,creditAmount-(double)taksi)*12;
+                double interestGPR = Microsoft.VisualBasic.Financial.Rate(Months, (double)-(pogaseni / Months), creditAmount) * 12;
+                GPR = (decimal)Math.Pow((interestGPR / 12) + 1.0, 12) - 1;
 
                 // Закръгляне на числата
+                /*
                 taksi = Decimal.Round(taksi, 2, MidpointRounding.AwayFromZero);
                 vnoski = Decimal.Round(vnoski, 2, MidpointRounding.AwayFromZero);
                 pogaseni = Decimal.Round(pogaseni, 2, MidpointRounding.AwayFromZero);
                 GPR = Decimal.Round(GPR, 4, MidpointRounding.AwayFromZero);
                 lihvi = Decimal.Round(lihvi, 2, MidpointRounding.AwayFromZero);
-
+                */
                 //Превръщане в String с форматиране
 
                 _taksi = taksi.ToString("C");
@@ -409,20 +409,10 @@ namespace FinanceCalculator
                 _GPR = GPR.ToString("P");
                 _lihvi = lihvi.ToString("C");
 
-
                 //Таблица
                 ScriptManager.RegisterStartupScript(this, GetType(), "showCreditResult", "showCreditResult()", true);
             }
         }
-        /* Заменено с Microsoft.VisualBasic.Financial.Pmt
-         *
-        protected decimal MesechnaVnoska(double interest, int months, decimal credit)
-        {
-            decimal b = (decimal)Math.Pow((interest / 12) + 1.0, -months);
-            decimal monthlyPayments = credit * ((decimal)interest / 12) / (1 - b);
-            return monthlyPayments;
-        }
-        */
         protected void FillArr(int num,decimal mesecVnoska, decimal vnoskaGlavnica, decimal vnoskaLihva, decimal ostatukGlavnica, decimal taksi, decimal potok)
         {
             array[num, 0] = num;
@@ -435,4 +425,3 @@ namespace FinanceCalculator
         }
     }
 }
-

@@ -120,7 +120,7 @@
                 tr1.appendChild(inth1);
                 var in1td1 = document.createElement("td");
                 in1td1.setAttribute("id", "in1td1");
-                in1td1.innerHTML =   " %";
+                in1td1.innerHTML = "<%=_GPR%>";
                 tr1.appendChild(in1td1);
                 tbody.appendChild(tr1);
 
