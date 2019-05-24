@@ -124,117 +124,200 @@ namespace FinanceCalculator
                 _gratis = true;
             }
 
-            //ТАКСИ
-            if (!String.IsNullOrWhiteSpace(input8.Text)) //ТАКСА КАНДИДАТСТВАНЕ - Процент от целия кредит / Единична фиксирана сума
+            //ТАКСА КАНДИДАТСТВАНЕ - Процент от целия кредит / Единична фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input8.Text)) 
             {
                 fee_kandi = decimal.Parse(input8.Text, CultureInfo.InvariantCulture);
-                if (fee_kandi < 0 || fee_kandi >= (decimal)creditAmount) //ГРЕШКА - Ако такса кандидатстване е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop8.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error8.Text = "Моля въведете коректно число за такса кандидатстване";
+                    if (fee_kandi < 0 || fee_kandi >= (decimal)creditAmount) //ГРЕШКА - Ако такса кандидатстване е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error8.Text = "Моля въведете коректно число за такса кандидатстване";
+                    }
+                    else
+                    {
+                        taksi += fee_kandi;
+                    }
                 }
-                if (drop8.SelectedIndex == 1) //Ако е в проценти
+                else if (drop8.SelectedIndex == 1) //Ако е в проценти
                 {
-                    fee_kandi = fee_kandi / 100;
-                    taksi = taksi + ((decimal)creditAmount * fee_kandi);
-                }
-                else
-                {
-                    taksi += fee_kandi;
+                    if (fee_kandi < 0 || fee_kandi > 40) //ГРЕШКА - Ако такса кандидатстване е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error8.Text = "Моля въведете коректно число за такса кандидатстване";
+                    }
+                    else
+                    {
+                        fee_kandi = fee_kandi / 100;
+                        taksi = taksi + ((decimal)creditAmount * fee_kandi);
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input9.Text)) //ТАКСА ОБРАБОТКА - Процент от целия кредит / Единична фиксирана сума
+            //ТАКСА ОБРАБОТКА - Процент от целия кредит / Единична фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input9.Text)) 
             {
                 fee_obrabot = decimal.Parse(input9.Text, CultureInfo.InvariantCulture);
-                if (fee_obrabot < 0 || fee_obrabot >= (decimal)creditAmount) //ГРЕШКА - Ако такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop9.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error9.Text = "Моля въведете коректно число за такса обработване";
+                    if (fee_obrabot < 0 || fee_obrabot >= (decimal)creditAmount) //ГРЕШКА - Ако такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error9.Text = "Моля въведете коректно число за такса обработка";
+                    }
+                    else
+                    {
+                        taksi += fee_obrabot;
+                    }
                 }
-                if (drop9.SelectedIndex == 0) //Ако е в проценти
+                else if (drop9.SelectedIndex == 1) //Ако е в проценти
                 {
-                    fee_obrabot = fee_obrabot / 100;
-                    taksi = taksi + ((decimal)creditAmount * fee_obrabot);
-                }
-                else
-                {
-                    taksi += fee_obrabot;
+                    if (fee_obrabot < 0 || fee_obrabot > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error9.Text = "Моля въведете коректно число за такса обработка";
+                    }
+                    else
+                    {
+                        fee_obrabot = fee_obrabot / 100;
+                        taksi = taksi + ((decimal)creditAmount * fee_obrabot);
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input10.Text)) //ДРУГИ ТАКСИ - Процент от целия кредит / Единична фиксирана сума
+            //ДРУГИ ТАКСИ - Процент от целия кредит / Единична фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input10.Text)) 
             {
                 fee_drug = decimal.Parse(input10.Text, CultureInfo.InvariantCulture);
-                if (fee_drug < 0 || fee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако друга такса е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop10.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error10.Text = "Моля въведете коректно число за други такси";
+                    if (fee_drug < 0 || fee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error10.Text = "Моля въведете коректно число за друга такса";
+                    }
+                    else
+                    {
+                        taksi += fee_drug;
+                    }
                 }
-                if (drop10.SelectedIndex == 1) //Ако е в проценти
+                else if (drop10.SelectedIndex == 1) //Ако е в проценти
                 {
-                    fee_drug = fee_drug / 100;
-                    taksi = taksi + ((decimal)creditAmount * fee_drug);
-                }
-                else
-                {
-                    taksi += fee_drug;
+                    if (fee_drug < 0 || fee_drug > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error10.Text = "Моля въведете коректно число за друга такса";
+                    }
+                    else
+                    {
+                        fee_drug = fee_drug / 100;
+                        taksi = taksi + ((decimal)creditAmount * fee_drug);
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input11.Text) && years >= 1) //ГОДИШНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница на първия месец на следващата година / фиксирана сума 
+            //ГОДИШНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница на първия месец на следващата година / фиксирана сума 
+            if (!String.IsNullOrWhiteSpace(input11.Text) && years >= 1) 
             {
                 yearFee_upr = decimal.Parse(input11.Text, CultureInfo.InvariantCulture);
-                if (yearFee_upr < 0 || yearFee_upr >= (decimal)creditAmount) //ГРЕШКА - Ако годишна такса управление е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop11.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error11.Text = "Моля въведете коректно число за годишна такса";
+                    if (yearFee_upr < 0 || yearFee_upr >= (decimal)creditAmount) //ГРЕШКА - Ако годишна такса управление е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error11.Text = "Моля въведете коректно число за годишна такса управление";
+                    }
                 }
-                if (drop11.SelectedIndex == 0) //Ако е в проценти
+                else if (drop11.SelectedIndex == 1) //Ако е в проценти
                 {
-                    yearFee_upr = yearFee_upr / 100;
+                    if (yearFee_upr < 0 || yearFee_upr > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error11.Text = "Моля въведете коректно число за годишна такса управление";
+                    }
+                    else
+                    {
+                        yearFee_upr = yearFee_upr / 100;
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input12.Text) && years >= 1) //ГОДИШНА ТАКСА ДРУГА - Процент от вносната главница на първия месец на следващата година / фиксирана сума
+            //ГОДИШНА ТАКСА ДРУГА - Процент от вносната главница на първия месец на следващата година / фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input12.Text) && years >= 1) 
             {
                 yearFee_drug = decimal.Parse(input12.Text, CultureInfo.InvariantCulture);
-                if (yearFee_drug < 0 || yearFee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако друга годишна такса е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop12.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error12.Text = "Моля въведете коректно число за годишна такса";
+                    if (yearFee_drug < 0 || yearFee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако годишна такса управление е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error12.Text = "Моля въведете коректно число за годишна такса";
+                    }
                 }
-                if (drop12.SelectedIndex == 1) //Ако е в проценти
+                else if (drop12.SelectedIndex == 0) //Ако е в проценти
                 {
-                    yearFee_drug = yearFee_drug / 100;
+                    if (yearFee_upr < 0 || yearFee_upr > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error12.Text = "Моля въведете коректно число за годишна такса";
+                    }
+                    else
+                    {
+                        yearFee_drug = yearFee_drug / 100;
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input13.Text)) //МЕСЕЧНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница / фиксирана сума
+            //МЕСЕЧНА ТАКСА УПРАВЛЕНИЕ - Процент от вносната главница / фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input13.Text)) 
             {
                 monthFee_upr = decimal.Parse(input13.Text, CultureInfo.InvariantCulture);
-                if (monthFee_upr < 0 || monthFee_upr >= (decimal)creditAmount) //ГРЕШКА - Ако месечна такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop13.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error13.Text = "Моля въведете коректно число за месечна такса";
+                    if (monthFee_upr < 0 || monthFee_upr >= (decimal)creditAmount) //ГРЕШКА - Ако месечна такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error13.Text = "Моля въведете коректно число за месечна такса";
+                    }
                 }
-                if (drop13.SelectedIndex == 0) //Ако е в проценти
+                else if (drop13.SelectedIndex == 1) //Ако е в проценти
                 {
-                    monthFee_upr = monthFee_upr / 100;
+                    if (monthFee_upr < 0 || monthFee_upr > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error13.Text = "Моля въведете коректно число за месечна такса";
+                    }
+                    else
+                    {
+                        monthFee_upr = monthFee_upr / 100;
+                    }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(input14.Text)) //МЕСЕЧНА ТАКСА ДРУГА  Процент от вносната главница / фиксирана сума
+            //МЕСЕЧНА ТАКСА ДРУГА  Процент от вносната главница / фиксирана сума
+            if (!String.IsNullOrWhiteSpace(input14.Text)) 
             {
                 monthFee_drug = decimal.Parse(input14.Text, CultureInfo.InvariantCulture);
-                if (monthFee_drug < 0 || monthFee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако друга месечна такса е по-малка от 0 или е по-голяма или равна на кредита
+                if (drop14.SelectedIndex == 0)
                 {
-                    _error = true;
-                    error14.Text = "Моля въведете коректно число за месечна такса";
+                    if (monthFee_drug < 0 || monthFee_drug >= (decimal)creditAmount) //ГРЕШКА - Ако месечна такса обработка е по-малка от 0 или е по-голяма или равна на кредита
+                    {
+                        _error = true;
+                        error14.Text = "Моля въведете коректно число за месечна такса";
+                    }
                 }
-                if (drop14.SelectedIndex == 1) //Ако е в проценти
+                else if (drop14.SelectedIndex == 1) //Ако е в проценти
                 {
-                    monthFee_drug = monthFee_drug / 100;
+                    if (monthFee_drug < 0 || monthFee_drug > 40) //ГРЕШКА
+                    {
+                        _error = true;
+                        error14.Text = "Моля въведете коректно число за месечна такса";
+                    }
+                    else
+                    {
+                        monthFee_drug = monthFee_drug / 100;
+                    }
                 }
             }
 
@@ -401,8 +484,8 @@ namespace FinanceCalculator
                 GPR = Decimal.Round(GPR, 4, MidpointRounding.AwayFromZero);
                 lihvi = Decimal.Round(lihvi, 2, MidpointRounding.AwayFromZero);
                 */
-                //Превръщане в String с форматиране
 
+                //Превръщане в String с форматиране
                 _taksi = taksi.ToString("C");
                 _vnoski = vnoski.ToString("C");
                 _pogaseni = pogaseni.ToString("C");

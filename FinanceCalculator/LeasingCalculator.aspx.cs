@@ -108,9 +108,11 @@ namespace FinanceCalculator
                 GPR = (decimal)Math.Pow((interestGPR / 12) + 1.0, 12) - 1;
 
                 //----Закръгляне----
+                /*
                 obshto_izplateno = Decimal.Round(obshto_izplateno, 2);
                 obshto_taksi = Decimal.Round(obshto_taksi, 2);
                 GPR = Decimal.Round(GPR, 4);
+                */
 
                 //Форматиране в String
                 _obshto_izplateno = obshto_izplateno.ToString("C");
