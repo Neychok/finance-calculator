@@ -1,9 +1,10 @@
-# finance-calculator
-University project
+# Finance Calculator
+This is an old university project I had to in my ASP.NET course.
+This is my first time using ASP.NET and Github, so don't judge :)
 
-The project was to make a credit, refinance and lease calculator.
+I know it has a lot of sh#t but left it anyway for historical reasons.
 
-This is my first time using ASP.NET and github.
+Basically, the requirements of the task were "Copy the credit, refinance and lease calculator from https://www.moitepari.bg/" without any other information on how to do the calculations.
 
 Роли:
 Front-End -  Монката / Megas97
